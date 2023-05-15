@@ -7,15 +7,11 @@ import Footer from "../components/Footer";
 export const RouterProvider = () => {
   return (
     <>
-      <Header />
-
       <Routes>
         <Route index element={<Home />} />
 
         <Route path="#" element={<Navigate to="/" />} />
       </Routes>
-
-      <Footer />
     </>
   );
 };
