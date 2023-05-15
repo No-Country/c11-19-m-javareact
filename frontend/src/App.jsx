@@ -1,5 +1,11 @@
+import { GlobalStyles } from './styled-components/base/GlobalStyles'
+
 function App() {
-  return <>Hello world</>
+  return (
+    <>
+      <GlobalStyles />
+    </>
+  )
 }
 
 export default App
