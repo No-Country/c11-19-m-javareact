@@ -1,17 +1,14 @@
 import React from "react";
-import { RouterProvider } from "./routes/RouterProvider";
-import Footer from "./components/Footer";
 import { BrowserRouter } from "react-router-dom";
+import Layout from "./routes/Layout";
 
 function App() {
   return (
-    //el ContextProvider iria en esta línea <>
     <>
       <BrowserRouter>
-        <RouterProvider />
+        <Layout />
       </BrowserRouter>
     </>
-    //el ContextProvider iria en esta línea </>
   );
 }
 
