@@ -1,8 +1,11 @@
 import React from 'react'
+import { Layout } from '../routes/Layout'
 
 function Home() {
   return (
-    <div>Home</div>
+    <Layout>
+      <main>Home page</main>
+    </Layout>
   )
 }
 
