@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from './routes/Layout'
+import { RouterProvider } from './routes/RouterProvider'
 
 import { GlobalStyles } from './styled-components/base/GlobalStyles'
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Layout />
+      <RouterProvider />
     </>
   )
 }
