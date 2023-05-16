@@ -1,16 +1,15 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { RouterProvider } from './RouterProvider'
 
-function Layout() {
+function Layout({ children }) {
   return (
     <>
       <Header />
-      <RouterProvider />
+      {children}
       <Footer />
     </>
   )
 }
 
-export default Layout
+export { Layout }
