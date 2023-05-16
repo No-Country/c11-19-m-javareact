@@ -1,16 +1,16 @@
-import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { RouterProvider } from "./RouterProvider";
+import React from 'react'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { RouterProvider } from './RouterProvider'
 
 function Layout() {
   return (
     <>
       <Header />
-        <RouterProvider />
+      <RouterProvider />
       <Footer />
     </>
-  );
+  )
 }
 
-export default Layout;
+export default Layout
