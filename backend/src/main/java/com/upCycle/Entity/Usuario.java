@@ -1,5 +1,6 @@
 package com.upCycle.Entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,14 @@ public abstract class Usuario {
 
     private String nombreCompleto;
     private String apellido;
+
+    @Column(name = "email",nullable = false, unique = true, length = 50)
     private String email;
+
+    @NotNull
     private String password;
 
-    @Column(name = "tipo_rol", insertable = false, updatable = false)
+    @Column(name = "tipo_rol", nullable = false, insertable = false, updatable = false)
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario")
                                     , inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id_rol"))
