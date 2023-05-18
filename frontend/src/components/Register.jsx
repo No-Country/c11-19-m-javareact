@@ -1,41 +1,52 @@
-function Register() {
-  // Cambiar los estilos porque con el color de fondo no se distingue nada
+import { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useAuth } from '../hooks/auth/useAuth'
 
-  function submitHandler(e) {
-    e.preventDefault();
-    console.log("boton de registro");
+function Register() {
+  const [formData, setformData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+
+  const { signUp } = useAuth()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const { user } = await signUp(formData)
+      console.log(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   return (
-    <>
-      <form>
+    <section>
+      <form onSubmit={handleSubmit}>
         <label>
           Correo electrónico
-          <input type="email" id="email" placeholder="example@gmail.com" />
+          <input onChange={handleInputChange} type='email' name='email' value={formData.email} id='email' placeholder='example@gmail.com' />
         </label>
 
         <label>
           Nombre de usuario
-          <input type="text" id="username" placeholder="username" />
+          <input onChange={handleInputChange} name='username' value={formData.username} type='text' id='username' placeholder='username' />
         </label>
 
         <label>
           Contraseña
-          <input type="password" id="password" placeholder="password" />
+          <input onChange={handleInputChange} name='password' value={formData.password} type='password' id='password' placeholder='password' />
         </label>
 
-        <label>
-          Confirmar contraseña
-          <input
-            type="password"
-            id="passwordRepeat"
-            placeholder="confirm password"
-          />
-        </label>
-
-        <button type="submit" onClick={submitHandler}>
-          Registrarse
-        </button>
+        <button type='submit'>Registrarse</button>
 
         <div>
           Registrarse con:
@@ -49,8 +60,8 @@ function Register() {
           </label>
         </div>
       </form>
-    </>
-  );
+    </section>
+  )
 }
 
-export default Register;
+export default Register
