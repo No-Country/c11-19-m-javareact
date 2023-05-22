@@ -30,4 +30,9 @@ public class UserServiceImpl implements IUsuarioService {
     public Boolean validarExistenciaByEmail(String email) {
         return usuarioRepo.existsByEmail(email);
     }
+
+    @Override
+    public Usuario getUsuarioById(Long id) {
+        return usuarioRepo.findById(id).get();
+    }
 }
