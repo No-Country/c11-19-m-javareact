@@ -1,5 +1,6 @@
 package com.upCycle.Entity;
 
+import com.upCycle.enums.TipoRol;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,7 @@ public class Rol {
     @Column(name = "id_rol")
     private Long idRol;
 
-    private String nombre;
+    @Enumerated(EnumType.STRING)
+    @Column(unique = true)
+    private TipoRol nombreRol;
 }

@@ -24,7 +24,7 @@ public abstract class Usuario {
     @Column(name = "id_usuario")
     private Long idUsuario;
 
-    private String nombreCompleto;
+    private String nombre;
     private String apellido;
 
     @Column(name = "email",nullable = false, unique = true, length = 50)

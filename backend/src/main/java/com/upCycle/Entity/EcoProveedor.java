@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue(value="EcoProveedor")
+@DiscriminatorValue(value="ECOPROVEEDOR")
 public class EcoProveedor extends Usuario{
 
     @Column(name = "razon_social")
