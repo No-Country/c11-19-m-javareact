@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Boton from './Boton'
 import PasswordField from './PasswordField'
-import EmailInput from './EmailInput'
+import EmailInput from './InputEmail'
 import BotonGoogle from './BotonGoogle'
 
 const FormContainer = styled.div`

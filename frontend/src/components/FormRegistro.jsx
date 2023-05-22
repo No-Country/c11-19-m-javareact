@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Boton from './Boton'
 import InputField from './InputField'
 import PasswordFieldSignup from './PasswordFieldSignup'
-import EmailInput from './EmailInput'
+import EmailInput from './InputEmail'
 import BotonGoogle from './BotonGoogle'
-import CuitField from './CUITField'
+import CuitField from './FieldCUIT'
 
 const FormContainer = styled.div`
   display: flex;
