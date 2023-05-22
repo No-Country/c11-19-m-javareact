@@ -15,4 +15,6 @@ public interface IUsuarioService {
 
     Boolean validarExistenciaByEmail(String email);
 
+    Usuario getUsuarioById(Long id);
+
 }

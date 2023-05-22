@@ -4,8 +4,11 @@ import com.upCycle.exception.MiExcepcion;
 import lombok.Data;
 
 @Data
-public class DtoRegistro {
+public class DtoRegistroEcocreador {
 
+    private String nombre;
+    private String apellido;
+    private String ocupacion;
     private String email;
     private String password;
     private String password2;
