@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class UsuarioRestImpl implements IUsuarioRest {
+public class UsuarioRestImpl  {
 
     private IUsuarioService usuarioService;
 
@@ -21,7 +21,7 @@ public class UsuarioRestImpl implements IUsuarioRest {
     public UsuarioRestImpl(IUsuarioService usuarioService){
         this.usuarioService = usuarioService;
     }
-
+/*
     @Override
     public ResponseEntity<String> signup(Map<String, String> requestMap) {
 
@@ -33,4 +33,6 @@ public class UsuarioRestImpl implements IUsuarioRest {
         }
         return upCycleUtils.getResponseEntity(upCycleConstant.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+ */
 }

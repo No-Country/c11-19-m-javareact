@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue(value="EcoCreador")
+@DiscriminatorValue(value="ECOCREADOR")
 @Entity
 public class EcoCreador extends Usuario{
 

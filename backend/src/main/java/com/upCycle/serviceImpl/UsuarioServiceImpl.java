@@ -5,6 +5,7 @@ import com.upCycle.Entity.EcoProveedor;
 import com.upCycle.Entity.Rol;
 import com.upCycle.Entity.Usuario;
 import com.upCycle.constants.upCycleConstant;
+import com.upCycle.enums.TipoRol;
 import com.upCycle.exception.MiExcepcion;
 import com.upCycle.repository.IRepositoryUsuario;
 import com.upCycle.service.IUsuarioService;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UsuarioServiceImpl implements IUsuarioService {
+public class UsuarioServiceImpl  {
 
     private IRepositoryUsuario usuarioRepo;
 
@@ -25,7 +26,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public UsuarioServiceImpl(IRepositoryUsuario usuarioRepo) {
         this.usuarioRepo = usuarioRepo;
     }
-    @Override
+
     public ResponseEntity<String> signup(Map<String, String> requestMap) {
 
         try{
@@ -93,14 +94,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
             ecoCreador.setEmail(requestMap.get("email"));
 
             Rol rol = new Rol();
-            rol.setNombre(requestMap.get("rol"));
+            rol.setNombreRol(TipoRol.ECOCREADOR);
 
             listaRoles.add(rol);
 
             ecoCreador.setRoles(listaRoles);
 
             if(requestMap.containsKey("name")){
-                ecoCreador.setNombreCompleto(requestMap.get("name"));
+                ecoCreador.setNombre(requestMap.get("name"));
             }
 
             if(requestMap.containsKey("password")){
@@ -119,14 +120,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
             ecoProveedor.setEmail(requestMap.get("email"));
 
             Rol rol = new Rol();
-            rol.setNombre(requestMap.get("rol"));
+            rol.setNombreRol(TipoRol.ECOPROVEEDOR);
 
             listaRoles.add(rol);
 
             ecoProveedor.setRoles(listaRoles);
 
             if(requestMap.containsKey("name")){
-                ecoProveedor.setNombreCompleto(requestMap.get("name"));
+                ecoProveedor.setNombre(requestMap.get("name"));
             }
 
             if(requestMap.containsKey("password")){
