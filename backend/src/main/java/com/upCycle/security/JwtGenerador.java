@@ -15,15 +15,15 @@ public class JwtGenerador {
     //Método para crear un token por medio de la authentication
     public String generarToke(Authentication authentication){
         String username = authentication.getName();
-        Date tiempoActual = new Date();
-        Date expiracionToken= new Date(tiempoActual.getTime() + ConstantesSeguridad.JWT_EXPIRATION_TOKEN);
+        //Date tiempoActual = new Date();
+        Date expiracionToken= new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10);
 
         //Linea para generar el token
         String token = Jwts.builder() //Construir un token JWT llamando token
                 .setSubject(username) //Aca establecemos el nombre de usuario que esta iniciando sesión
                 .setIssuedAt(new Date()) //Establecemos la fecha de emisión del token en el momento actual
                 .setExpiration(expiracionToken) //Establecemos la fecha de caducidad del token
-                .signWith(SignatureAlgorithm.ES512, ConstantesSeguridad.JWT_FIRMA) //Utilizamos este método de encriptación
+                .signWith(SignatureAlgorithm.HS512, ConstantesSeguridad.JWT_FIRMA) //Utilizamos este método de encriptación
                 .compact();//Este método finaliza la construccion del token y la convierte en una cadena
         return token;
     }
