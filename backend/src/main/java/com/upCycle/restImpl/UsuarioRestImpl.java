@@ -11,15 +11,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
-public class UsuarioRestImpl  {
+public class UsuarioRestImpl implements IUsuarioRest {
 
     private IUsuarioService usuarioService;
 
     @Autowired
     public UsuarioRestImpl(IUsuarioService usuarioService){
         this.usuarioService = usuarioService;
+    }
+
+    @Override
+    public ResponseEntity<Usuario> ObtenerUsuarioPorId(Long id) {
+        Usuario usuario = usuarioService.getUsuarioById(id);
+        if(Objects.isNull(usuario)){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(usuario);
     }
 /*
     @Override
