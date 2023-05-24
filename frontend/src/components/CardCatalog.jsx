@@ -1,35 +1,40 @@
 import styled from "styled-components";
+import IconAnimation from "./IconAnimation";
 
 const Card = styled.div`
 border-radius: 10px;
 overflow: hidden;
 color: #f3f3f3; 
 position: relative;
-width: 300px;
-height: 300px;
+width: 210px;
+height: 210px;
 cursor: pointer;
+transition: width 0.3s ease, height 0.3s ease;
   h4 {
-    font-size: 16px;
+    margin-left: 16px;
     font-family: var(--family-two);
 font-style: normal;
 font-weight: 900;
 font-size: 20px;
 line-height: 24px;
 }
+  h5 {
+    font-size: 12px;
+    margin-left: 16px;
+    line-height: 15px;
+  }
+  &:hover {
+    width: 232px;
+    height: 232px;
+  }
 `;
 
 const FavoriteIcon = styled.div`
   z-index: 10;
   position: absolute;
-  width: 24px;
-  height: 24px;
   top: 16px;
   right: 16px;
-  background-color: #f3f3f3;
-  transition: border-radius 1s ease;
-  &:hover {
-    border-radius: 50px;
-  }
+  
 `
 const Overlay = styled.div`
   position: absolute;
@@ -48,14 +53,18 @@ position: absolute;
 left: 0;
 bottom: 0;
 width: 100%;
-height: 40%;
+height: 36%;
+overflow: hidden;
 `
 
 function CardCatalog() {
   return (
     <>
       <Card>
-        <FavoriteIcon />
+
+        <FavoriteIcon>
+          <IconAnimation />
+        </FavoriteIcon>
         <Overlay />
         <img src="https://placekitten.com/300/300" alt="materiales" />
         <CardText>
