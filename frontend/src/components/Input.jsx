@@ -15,7 +15,7 @@ const ErrorStyled = styled.p`
   color: red;
 `
 
-const Input = ({ label, type, value, name, onChange }) => {
+const Input = ({ label, type, value, name, onChange, placeHolder }) => {
   const [error, setError] = useState('')
 
   const handleOnBlur = () => {
@@ -25,7 +25,7 @@ const Input = ({ label, type, value, name, onChange }) => {
   return (
     <div>
       <LabelStyled htmlFor={name}>{label}</LabelStyled>
-      <InputStyled type={type} value={value} name={name} id={name} onChange={onChange} onBlur={handleOnBlur} />
+      <InputStyled type={type} value={value} name={name} id={name} onChange={onChange} onBlur={handleOnBlur} aria-placeholder={placeHolder} />
       {error && <ErrorStyled>{error}</ErrorStyled>}
     </div>
   )
