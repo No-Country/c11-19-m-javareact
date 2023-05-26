@@ -24,4 +24,4 @@ const BotonGoogle = ({ children, onClick }) => {
   return <Button onClick={onClick}>{children}</Button>
 }
 
-export default BotonGoogle
+export { BotonGoogle }
