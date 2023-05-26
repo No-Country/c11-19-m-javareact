@@ -45,6 +45,15 @@ const verifyInput = (type, value) => {
       return ''
     }
   }
+
+  if (type === 'text') {
+    const isEmpty = value.trim() === ''
+    if (isEmpty) {
+      return 'Por favor, completa este campo'
+    } else {
+      return ''
+    }
+  }
 }
 
 export { verifyInput }
