@@ -1,21 +1,7 @@
 const Hexagon = () => {
   return (
-    <svg width='117' height='128' viewBox='0 0 117 128' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <g filter='url(#filter0_d_847_40044)'>
-        <path d='M20.0034 86.8553C17.5263 85.4268 16 82.7847 16 79.9252V40.0749C16 37.2154 17.5263 34.5733 20.0034 33.1447L54.4012 13.3074C56.8771 11.8796 59.9266 11.881 62.4011 13.3112L96.7151 33.1435C99.1885 34.573 100.712 37.213 100.712 40.0698V79.9302C100.712 82.787 99.1885 85.427 96.715 86.8566L62.401 106.689C59.9266 108.119 56.8771 108.12 54.4012 106.693L20.0034 86.8553Z' fill='#F3F3F3' />
-      </g>
-      <defs>
-        <filter id='filter0_d_847_40044' x='0' y='0.237305' width='116.712' height='127.525' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'>
-          <feFlood flood-opacity='0' result='BackgroundImageFix' />
-          <feColorMatrix in='SourceAlpha' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0' result='hardAlpha' />
-          <feOffset dy='4' />
-          <feGaussianBlur stdDeviation='8' />
-          <feComposite in2='hardAlpha' operator='out' />
-          <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0' />
-          <feBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_847_40044' />
-          <feBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_847_40044' result='shape' />
-        </filter>
-      </defs>
+    <svg width='85' height='96' viewBox='0 0 85 96' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <path d='M4.00337 74.8553C1.52626 73.4268 0 70.7847 0 67.9252V28.0749C0 25.2154 1.52626 22.5733 4.00336 21.1447L38.4012 1.3074C40.8771 -0.12043 43.9266 -0.118989 46.4011 1.31118L80.7151 21.1435C83.1885 22.573 84.7119 25.213 84.7119 28.0698V67.9302C84.7119 70.787 83.1885 73.427 80.7151 74.8566L46.401 94.6888C43.9266 96.119 40.8771 96.1204 38.4012 94.6926L4.00337 74.8553Z' fill='#F3F3F3' />
     </svg>
   )
 }
