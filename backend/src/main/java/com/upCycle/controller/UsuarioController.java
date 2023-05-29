@@ -61,4 +61,9 @@ public class UsuarioController {
         var perfil = usuarioService.obtenerPerfil(session);
         return ResponseEntity.ok(perfil);
     }
+
+    @GetMapping("/saludar")
+    public String saludar(){
+        return "Hola equipo c11-19";
+    }
 }
