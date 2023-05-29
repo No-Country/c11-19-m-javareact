@@ -63,7 +63,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/saludar")
-    public String saludar(){
-        return "Hola equipo c11-19";
+    public ResponseEntity<String> saludar(){
+        return ResponseEntity.ok("Hola equipo c11-19");
     }
 }
