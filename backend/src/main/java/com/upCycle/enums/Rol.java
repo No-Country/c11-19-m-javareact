@@ -1,7 +1,6 @@
-package com.upCycle.auth.enums;
+package com.upCycle.enums;
 
 public enum Rol {
-
     ECOCREADOR,
     ECOPROVEEDOR
 }

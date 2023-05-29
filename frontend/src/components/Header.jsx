@@ -12,6 +12,8 @@ const HeaderStyled = styled.header`
 const Logo = styled.img`
   height: 40px;
   max-width: 150px;
+  max-height: 40px;
+  max-width: 140px;
 `
 
 const Header = () => {
