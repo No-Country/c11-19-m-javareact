@@ -1,9 +1,0 @@
-{
-  "extends": ["./node_modules/standard/eslintrc.json"],
-  "rules": {
-    "jsx-quotes": "off",
-    "quotes": "off",
-    "semi": "off",
-    "space-before-function-paren": "off"
-  }
-}
