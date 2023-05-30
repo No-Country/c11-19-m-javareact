@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DtoProductoResponse {
 
+    private Long id;
+
     private String description;
 
     private String material;
