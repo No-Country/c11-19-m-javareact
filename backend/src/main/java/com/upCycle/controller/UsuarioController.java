@@ -5,6 +5,7 @@ import com.upCycle.dto.request.DtoEcoproveedor;
 import com.upCycle.dto.request.DtoUsuario;
 import com.upCycle.dto.response.DtoEcocreadorResponse;
 import com.upCycle.dto.response.DtoEcoproveedorResponse;
+import com.upCycle.dto.response.DtoUsuarioResponse;
 import com.upCycle.exception.UserAlreadyExistException;
 import com.upCycle.exception.UserNotExistException;
 import com.upCycle.service.EcocreadorService;
@@ -50,9 +51,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
+    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
-        return usuarioService.iniciarSession(usuarioRequest, session) ? ResponseEntity.ok("Login exitoso") : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciales inválidas");
+         var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
+         return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
     }
 
     @GetMapping("/profile")

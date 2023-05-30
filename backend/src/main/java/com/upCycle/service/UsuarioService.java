@@ -32,17 +32,23 @@ public class UsuarioService {
         this.ecocreadorMapper = ecocreadorMapper;
     }
 
-    public boolean iniciarSession(DtoUsuario dtoUsuario, HttpSession session) throws UserNotExistException {
+    public DtoUsuarioResponse iniciarSession(DtoUsuario dtoUsuario, HttpSession session) throws UserNotExistException {
 
         Optional<Usuario> oUser = repository.findByEmail(dtoUsuario.getEmail());
-        Usuario user = oUser.orElse(null);
+        Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
 
-        if(user == null){
-            throw new UserNotExistException("Este usuario no existe, intente con otro correo");
+        if(user.getRol().equals(Rol.ECOPROVEEDOR) && user.getPassword().equals(dtoUsuario.getPassword())){
+            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(user.getId());
+            session.setAttribute("usuarioLogueado", oEcoproveedor.get());
+            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
+
+        }else if(user.getRol().equals(Rol.ECOCREADOR) && user.getPassword().equals(dtoUsuario.getPassword())){
+            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(user.getId());
+            session.setAttribute("usuarioLogueado", oEcocreador.get());
+            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
+        }else {
+            return null;
         }
-        session.setAttribute("usuarioLogueado", user);
-
-        return true;
 
     }
     public DtoUsuarioResponse obtenerPerfil(HttpSession session) {
