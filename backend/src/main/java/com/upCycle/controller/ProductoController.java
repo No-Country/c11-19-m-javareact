@@ -2,6 +2,7 @@ package com.upCycle.controller;
 
 import com.upCycle.dto.request.DtoProducto;
 import com.upCycle.dto.response.DtoProductoResponse;
+import com.upCycle.entity.Usuario;
 import com.upCycle.exception.UserUnauthorizedException;
 import com.upCycle.service.ProductoService;
 import jakarta.servlet.http.HttpSession;
@@ -25,10 +26,16 @@ public class ProductoController {
     }
 
     @PostMapping("/product/create")
-    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto, HttpSession session) throws UserUnauthorizedException {
+    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto, HttpSession session){
 
-        DtoProductoResponse productoResponse = service.crearProducto(dtoProducto, session);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
+        try {
+            Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+            DtoProductoResponse productoResponse = service.crearProducto(dtoProducto, logueado);
+            return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
+
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
     }
 }

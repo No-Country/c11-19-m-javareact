@@ -16,7 +16,7 @@ public class DtoEcoproveedorResponse extends DtoUsuarioResponse {
     private String companyName;
     private String cuit;
     private String logoImage;
-    private String password;
+    private int points;
     private String rol;
     private List<DtoProductoResponse> listaProductos;
 }

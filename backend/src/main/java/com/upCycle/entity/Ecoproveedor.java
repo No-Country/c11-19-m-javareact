@@ -24,6 +24,23 @@ public class Ecoproveedor extends Usuario{
     @Column(name = "logo_image")
     private String logo;
 
+    @Column(name = "points")
+    private int puntos;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ecoproveedor")
     private List<Producto> listaProductos;
+
+    public int calcularPuntosTotales() {
+        int puntosTotales = 0;
+        if (listaProductos != null) {
+            for (Producto producto : listaProductos) {
+                if (producto.getPeso() != null) {
+                    double pesoEnKg = producto.getPeso();
+                    int puntosPorProducto = (int) (pesoEnKg * 10);
+                    puntosTotales += puntosPorProducto;
+                }
+            }
+        }
+        return puntosTotales;
+    }
 }
