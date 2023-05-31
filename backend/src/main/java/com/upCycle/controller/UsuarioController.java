@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/auth")
+@RequestMapping(path = "/api/auth")
 public class UsuarioController {
 
     private final EcoproveedorService ecoproveedorService;
@@ -36,21 +36,21 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/registerEcoproveedor")
+    @PostMapping(path = "/registerEcoproveedor")
     public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor, HttpSession session) throws UserAlreadyExistException {
 
         DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
-    @PostMapping("/registerEcocreador")
+    @PostMapping(path = "/registerEcocreador")
     public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession  session) throws UserAlreadyExistException {
 
         DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
          var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
@@ -58,14 +58,14 @@ public class UsuarioController {
 
     }
 
-    @GetMapping("/profile")
+    @GetMapping(path = "/profile")
     public ResponseEntity<?> obtenerPerfil(HttpSession session){
 
         var perfil = usuarioService.obtenerPerfil(session);
         return ResponseEntity.ok(perfil);
     }
 
-    @GetMapping("/saludar")
+    @GetMapping(path = "/saludar")
     public ResponseEntity<String> saludar(){
         return ResponseEntity.ok("Hola equipo c11-19");
     }
