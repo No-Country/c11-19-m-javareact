@@ -166,21 +166,23 @@ function Publication() {
 
   function submitHandler(event) {
     event.preventDefault();
+    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ \-(),":.]+$/;
 
     const data = Object.fromEntries(new FormData(event.target));
-    data.imagen = ImgURL;
-    data.ubicacion = ubicacion;
+    data.image = ImgURL;
+    data.location = ubicacion;
     data.material = material;
-    data.puntos = `${data.cantidad * 10}`;
     JSON.stringify(data);
+    console.log(data);
 
     if (
-      data.descripcion !== "" &&
-      data.descripcion.length < 50 &&
-      data.cantidad !== "" &&
-      !isNaN(data.cantidad) &&
-      data.imagen !== undefined &&
-      data.ubicacion !== "Ubicación del material" &&
+      data.description !== "" &&
+      data.description.length < 50 &&
+      regex.test(data.description) &&
+      data.kilograms !== "" &&
+      !isNaN(data.kilograms) &&
+      data.image !== undefined &&
+      data.location !== "Ubicación del material" &&
       data.material !== "Tipo de meterial"
     ) {
       console.log(
@@ -230,21 +232,21 @@ function Publication() {
           orden="2"
         />
         <StyledInput
-          name="descripcion"
+          name="description"
           type="text"
           titulo="Descripción"
           orden="3"
           placeholder="Ej: Algodon"
         />
         <StyledInput
-          name="cantidad"
+          name="kilograms"
           type="text"
           titulo="Cantidad"
           orden="4"
           placeholder="Cantidad en kilogramo"
         />
         <Selector
-          titulo="Ubicación"
+          titulo="location"
           placeholder="Ubicación del material"
           opciones={opcionesUbicacion}
           orden="5"
