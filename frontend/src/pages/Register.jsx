@@ -1,5 +1,7 @@
+import { Layout } from '../routes/Layout'
+
 const Register = () => {
-  return <div>Register</div>
+  return <Layout>Register</Layout>
 }
 
 export { Register }
