@@ -31,7 +31,7 @@ const Text = styled.p`
 function HexagonPillar({ Icon, text }) {
   return (
     <HexagonPillarStyled>
-      <Hexagon />
+      <Hexagon fill='#F3F3F3' />
       {Icon}
       <Text>{text}</Text>
     </HexagonPillarStyled>
