@@ -137,7 +137,7 @@ const Beneficio = styled.p`
   justify-content: center;
 `;
 
-function StyledInput({ name, type, titulo, placeholder, orden, input }) {
+function StyledInput({ name, type, titulo, placeholder, orden }) {
   const [regexOk, setRegexOk] = useState(" ");
   const [valueIn, setValueIn] = useState(" ");
   const [benefcio, setBeneficio] = useState("");
@@ -151,9 +151,9 @@ function StyledInput({ name, type, titulo, placeholder, orden, input }) {
 
     if (name === "titulo") {
       regex = /^[a-zA-Z\s]*$/;
-    } else if (name === "descripcion") {
+    } else if (name === "description") {
       regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ \-(),":.]+$/;
-    } else if (name === "cantidad") {
+    } else if (name === "kilograms") {
       regex = /^[0-9.]+$/;
     }
 
@@ -192,7 +192,9 @@ function StyledInput({ name, type, titulo, placeholder, orden, input }) {
 
   return (
     <>
-      {(name === "titulo" || name === "descripcion" || name === "cantidad") && (
+      {(name === "titulo" ||
+        name === "description" ||
+        name === "kilograms") && (
         <Contenedor orden={orden}>
           <TituloI>{titulo}</TituloI>
 
@@ -202,18 +204,17 @@ function StyledInput({ name, type, titulo, placeholder, orden, input }) {
               placeholder={placeholder}
               onChange={handleChange}
               name={name}
-              input={(e) => (input = e.target.value)}
             />
 
             {!regexOk &&
-              (name === "titulo" || name === "descripcion") &&
+              (name === "titulo" || name === "description") &&
               !offLimit && (
                 <IndicacionContenedor>
                   <Alert>No ingresar caracteres especiales</Alert>
                 </IndicacionContenedor>
                 // eslint-disable-next-line indent
               )}
-            {(name === "titulo" || name === "descripcion") &&
+            {(name === "titulo" || name === "description") &&
               offLimit === true && (
                 <IndicacionContenedor>
                   <Alert>Superaste el límite de caracteres</Alert>
@@ -221,17 +222,17 @@ function StyledInput({ name, type, titulo, placeholder, orden, input }) {
                 // eslint-disable-next-line indent
               )}
 
-            {!regexOk && name === "cantidad" && (
+            {!regexOk && name === "kilograms" && (
               <IndicacionContenedor>
                 <Alert>Solo se permiten números</Alert>
               </IndicacionContenedor>
             )}
-            {regexOk && name === "cantidad" && valueIn && valueIn !== " " && (
+            {regexOk && name === "kilograms" && valueIn && valueIn !== " " && (
               <IndicacionContenedor>
                 <Beneficio>Sumarás {benefcio} puntos</Beneficio>
               </IndicacionContenedor>
             )}
-            {name === "cantidad" && valueIn === " " && (
+            {name === "kilograms" && valueIn === " " && (
               <IndicacionContenedor>
                 <Beneficio>¡Sumarás 10 puntos por cada kg que dones!</Beneficio>
               </IndicacionContenedor>
