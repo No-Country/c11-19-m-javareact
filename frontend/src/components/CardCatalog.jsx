@@ -6,8 +6,8 @@ border-radius: 10px;
 overflow: hidden;
 color: #f3f3f3; 
 position: relative;
-width: 210px;
-height: 210px;
+width: 180px;
+height: 190px;
 cursor: pointer;
 transition: width 0.3s ease, height 0.3s ease;
   h4 {
@@ -24,8 +24,8 @@ line-height: 24px;
     line-height: 15px;
   }
   &:hover {
-    width: 232px;
-    height: 232px;
+    width: 190px;
+    height: 200px;
   }
 `;
 
