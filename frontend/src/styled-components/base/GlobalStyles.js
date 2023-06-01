@@ -64,9 +64,9 @@ const GlobalStyles = createGlobalStyle`
     font-size: 100%;
     font-family: var(--family-one);
     background-color: var(--background-one);
-    display: grid;
+    ${'' /* display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr; */}
   }
 
   img,
