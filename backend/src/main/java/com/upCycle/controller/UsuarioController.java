@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/api/auth")
@@ -37,6 +34,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    @CrossOrigin
     @PostMapping(path = "/registerEcoproveedor")
     public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor, HttpSession session) throws UserAlreadyExistException {
 
@@ -44,6 +42,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
+    @CrossOrigin
     @PostMapping(path = "/registerEcocreador")
     public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession  session) throws UserAlreadyExistException {
 
@@ -51,6 +50,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
+    @CrossOrigin
     @PostMapping(path = "/login")
     public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
