@@ -11,6 +11,7 @@ import com.upCycle.exception.UserNotExistException;
 import com.upCycle.service.EcocreadorService;
 import com.upCycle.service.EcoproveedorService;
 import com.upCycle.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,16 +54,22 @@ public class UsuarioController {
     @PostMapping(path = "/login")
     public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
-         var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
-         return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        try {
+            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
+            return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
     }
 
-    @GetMapping(path = "/profile")
-    public ResponseEntity<?> obtenerPerfil(HttpSession session){
+    @GetMapping(path = "/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
 
-        var perfil = usuarioService.obtenerPerfil(session);
-        return ResponseEntity.ok(perfil);
+        HttpSession session = request.getSession(false);
+        return usuarioService.cerrarSession(session) ? ResponseEntity.ok("Session cerrada correctamente") :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nunca se inicio session wey. Registrate para eso");
     }
 
     @GetMapping(path = "/saludar")

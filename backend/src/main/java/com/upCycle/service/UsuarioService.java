@@ -35,33 +35,29 @@ public class UsuarioService {
     public DtoUsuarioResponse iniciarSession(DtoUsuario dtoUsuario, HttpSession session) throws UserNotExistException {
 
         Optional<Usuario> oUser = repository.findByEmail(dtoUsuario.getEmail());
-        Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
+        Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
 
         if(user.getRol().equals(Rol.ECOPROVEEDOR) && user.getPassword().equals(dtoUsuario.getPassword())){
             Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(user.getId());
             session.setAttribute("usuarioLogueado", oEcoproveedor.get());
-            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
+            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
 
         }else if(user.getRol().equals(Rol.ECOCREADOR) && user.getPassword().equals(dtoUsuario.getPassword())){
             Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(user.getId());
             session.setAttribute("usuarioLogueado", oEcocreador.get());
-            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));
+            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
         }else {
             return null;
         }
 
     }
-    public DtoUsuarioResponse obtenerPerfil(HttpSession session) {
+    public boolean cerrarSession(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if(logueado.isEcoproveedor(Rol.ECOPROVEEDOR)){
-            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(logueado.getId());
-            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElse(null);
-
-        }else {
-            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(logueado.getId());
-            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElse(null);
+        if (session != null) {
+            // Invalidar la sesión
+            session.invalidate();
+            return true;
         }
+        return false;
     }
 }
