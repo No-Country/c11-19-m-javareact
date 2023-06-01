@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import SwitchHome from './SwitchHome'
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -20,17 +21,7 @@ const Header = () => {
   return (
     <HeaderStyled>
       <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
-      <ul>
-        <li>
-          <a href='#'>Home</a>
-        </li>
-        <li>
-          <a href='#'>Register</a>
-        </li>
-        <li>
-          <a href='#'>Login</a>
-        </li>
-      </ul>
+      <SwitchHome />
     </HeaderStyled>
   )
 }
