@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Layout } from '../routes/Layout'
 import ImgPerfil from '../assets/img/PortadaPerfil.png'
 import ImgBackground from '../assets/img/Group.png'
 import BackArrow from '../assets/img/flecha.png'
@@ -80,33 +81,35 @@ const ContainerSlaider = styled.div`
 
 function InfoUser() {
   return (
-    <FondoPagina>
-      <BackArrowContainer>
-        <img src={BackArrow} alt='Back arrow' />
-      </BackArrowContainer>
+    <Layout>
+      <FondoPagina>
+        <BackArrowContainer>
+          <img src={BackArrow} alt='Back arrow' />
+        </BackArrowContainer>
 
-      <UsuaroPerfilFoto src={ImgPerfil} alt='Foto de perfi' />
-      <TextInfoUser>Hola, Andrea</TextInfoUser>
-      <TextSearchProduct>¿Qué vas a crear hoy?</TextSearchProduct>
+        <UsuaroPerfilFoto src={ImgPerfil} alt='Foto de perfi' />
+        <TextInfoUser>Hola, Andrea</TextInfoUser>
+        <TextSearchProduct>¿Qué vas a crear hoy?</TextSearchProduct>
 
-      <SearchContainer>
-        <SearchInput placeholder='Buscar' />
-        <ImgLupaSearch src={ImgLupa} alt='lupa' />
-      </SearchContainer>
+        <SearchContainer>
+          <SearchInput placeholder='Buscar' />
+          <ImgLupaSearch src={ImgLupa} alt='lupa' />
+        </SearchContainer>
 
-      <ButtonFilterContainer>
-        <ButtonSlider />
-      </ButtonFilterContainer>
+        <ButtonFilterContainer>
+          <ButtonSlider />
+        </ButtonFilterContainer>
 
-      <h2>Favoritos</h2>
-      <ContainerSlaider>
-        <ProductSlider />
-      </ContainerSlaider>
-      <ContainerSlaider>
-        <h2>Recomendados para ti</h2>
-        <ProductSlider />
-      </ContainerSlaider>
-    </FondoPagina>
+        <h2>Favoritos</h2>
+        <ContainerSlaider>
+          <ProductSlider />
+        </ContainerSlaider>
+        <ContainerSlaider>
+          <h2>Recomendados para ti</h2>
+          <ProductSlider />
+        </ContainerSlaider>
+      </FondoPagina>
+    </Layout>
   )
 }
 
