@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/api/auth")
+@CrossOrigin(origins = "https://c11-19-m-javareact-production.up.railway.app/")
 public class UsuarioController {
 
     private final EcoproveedorService ecoproveedorService;
@@ -34,7 +35,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @CrossOrigin
+
     @PostMapping(path = "/registerEcoproveedor")
     public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor) throws UserAlreadyExistException {
 
@@ -42,7 +43,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
-    @CrossOrigin
     @PostMapping(path = "/registerEcocreador")
     public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador) throws UserAlreadyExistException {
 
@@ -50,7 +50,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
-    @CrossOrigin
     @PostMapping(path = "/login")
     public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest) throws UserNotExistException {
 

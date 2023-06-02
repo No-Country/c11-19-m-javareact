@@ -21,6 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/api/product")
+@CrossOrigin(origins = "https://c11-19-m-javareact-production.up.railway.app/")
 public class ProductoController {
 
     private final ProductoService service;
@@ -30,7 +31,6 @@ public class ProductoController {
         this.service = service;
     }
 
-    @CrossOrigin
     @PostMapping(path = "/create")
     public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto){
 
