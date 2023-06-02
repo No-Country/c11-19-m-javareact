@@ -32,11 +32,11 @@ public class ProductoController {
 
     @CrossOrigin
     @PostMapping(path = "/create")
-    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto, HttpSession session){
+    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto){
 
         try {
-            Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
-            DtoProductoResponse productoResponse = service.crearProducto(dtoProducto, logueado);
+            //Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+            DtoProductoResponse productoResponse = service.crearProducto(dtoProducto);
             return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
 
         }catch (Exception ex){
@@ -46,10 +46,10 @@ public class ProductoController {
     }
 
     @GetMapping(path = "/getAll")
-    public ResponseEntity<List<DtoProductoResponse>> listarProductos(HttpSession session){
+    public ResponseEntity<List<DtoProductoResponse>> listarProductos(){
 
         try{
-            List<DtoProductoResponse> dtoProductoResponse = service.listarProductos(session);
+            List<DtoProductoResponse> dtoProductoResponse = service.listarProductos();
             if(!dtoProductoResponse.isEmpty()){
                 return ResponseEntity.ok().body(dtoProductoResponse);
             }else {
@@ -62,10 +62,10 @@ public class ProductoController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<DtoEcoproveedorResponse> buscarEcoproveedorPorIdProdcuto(@PathVariable Long id, HttpSession session){
+    public ResponseEntity<DtoEcoproveedorResponse> buscarEcoproveedorPorIdProdcuto(@PathVariable Long id){
 
         try {
-            DtoEcoproveedorResponse dtoEcoproveedorResponse = service.buscarEcoproveedorPorIdProdcuto(id, session);
+            DtoEcoproveedorResponse dtoEcoproveedorResponse = service.buscarEcoproveedorPorIdProdcuto(id);
             if(dtoEcoproveedorResponse != null){
                 return ResponseEntity.ok().body(dtoEcoproveedorResponse);
             }else {
@@ -77,10 +77,10 @@ public class ProductoController {
         }
     }
 
-    @GetMapping(path = "/tag/{material}")
-    public ResponseEntity<List<DtoProductoResponse>> filtrarPorMaterial(@RequestParam("material") String material, HttpSession session){
+    @GetMapping(path = "/filterTag/{material}")
+    public ResponseEntity<List<DtoProductoResponse>> filtrarPorMaterial(@PathVariable String material){
         try {
-            List<DtoProductoResponse> dtoProductoResponse = service.listarPorMaterial(material, session);
+            List<DtoProductoResponse> dtoProductoResponse = service.listarPorMaterial(material);
             return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ArrayList<>());
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -88,10 +88,10 @@ public class ProductoController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id, HttpSession session) {
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
 
         try {
-            service.eliminarProducto(id, session);
+            service.eliminarProducto(id);
             return ResponseEntity.noContent().build();
 
         }catch (Exception ex){

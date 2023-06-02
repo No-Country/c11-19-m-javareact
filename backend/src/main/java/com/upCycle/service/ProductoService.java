@@ -8,6 +8,7 @@ import com.upCycle.entity.Producto;
 import com.upCycle.entity.Ubicacion;
 import com.upCycle.entity.Usuario;
 import com.upCycle.enums.Rol;
+import com.upCycle.enums.TipoMaterial;
 import com.upCycle.exception.UserNotExistException;
 import com.upCycle.exception.UserUnauthorizedException;
 import com.upCycle.mapper.EcoproveedorMapper;
@@ -48,13 +49,17 @@ public class ProductoService {
         this.ecoproveedorService = ecoproveedorService;
     }
 
-    public DtoProductoResponse crearProducto(DtoProducto dtoProducto, Usuario logueado) throws UserUnauthorizedException {
-
+    public DtoProductoResponse crearProducto(DtoProducto dtoProducto) throws UserUnauthorizedException, UserNotExistException {
+/*
         if(!logueado.getRol().equals(Rol.ECOPROVEEDOR)){
             throw new UserUnauthorizedException("Usuario no autorizado");
         }
+ */
+        Ecoproveedor ecoproveedor = usuarioRepository.buscarEcoproveedorPorId(dtoProducto.getIdEcoproveedor()).orElseThrow(() -> new UserNotExistException("El usuario no existe"));
 
-        Ecoproveedor ecoproveedor = usuarioRepository.buscarEcoproveedorPorId(logueado.getId()).get();
+        if(!ecoproveedor.getRol().equals(Rol.ECOPROVEEDOR)){
+            throw new UserUnauthorizedException("Usuario no autorizado");
+        }
 
         Producto producto = mapper.DtoAentidadProducto(dtoProducto);
 
@@ -66,36 +71,43 @@ public class ProductoService {
         return mapper.entidadADtoProducto(producto);
     }
 
-    public void eliminarProducto(Long id, HttpSession session) throws UserUnauthorizedException, UserNotExistException {
-
+    public void eliminarProducto(Long id) throws UserUnauthorizedException, UserNotExistException {
+/*
         Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
         if(Objects.isNull(logueado)){
             throw new UserNotExistException("Usuario inexistente");
         }
-        if(logueado.getRol().equals(Rol.ECOCREADOR)){
-            throw new UserUnauthorizedException("Usuario no autorizado");
+ */
+        Optional<Producto> oProducto = repository.findById(id);
+
+        if(oProducto.isPresent()){
+            Producto producto = oProducto.get();
+            if(producto.getEcoproveedor().getRol().equals(Rol.ECOCREADOR)){
+                throw new UserUnauthorizedException("Usuario no autorizado");
+            }
+            repository.delete(producto);
         }
-        Producto producto = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "El producto con id: "+id+", no existe"));
-        repository.delete(producto);
     }
 
-    public List<DtoProductoResponse> listarProductos(HttpSession session) throws UserNotExistException {
+    public List<DtoProductoResponse> listarProductos() throws UserNotExistException {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+        /*Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
         if(Objects.isNull(logueado)){
             throw new UserNotExistException("Usuario inexistente");
         }
+         */
         List<Producto> listEntidadProductos = repository.findAll();
         return mapper.entidadProductoListADtoList(listEntidadProductos);
 
     }
 
-    public DtoEcoproveedorResponse buscarEcoproveedorPorIdProdcuto(Long id, HttpSession session) throws UserNotExistException {
+    public DtoEcoproveedorResponse buscarEcoproveedorPorIdProdcuto(Long id) throws UserNotExistException {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+        /*Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
         if(Objects.isNull(logueado)){
             throw new UserNotExistException("Usuario inexistente");
         }
+         */
 
         Optional<Producto> oProducto = repository.findById(id);
         if(oProducto.isPresent()){
@@ -109,13 +121,25 @@ public class ProductoService {
         return null;
     }
 
-    public List<DtoProductoResponse> listarPorMaterial(String material, HttpSession session) throws UserNotExistException {
+    public List<DtoProductoResponse> listarPorMaterial(String material) throws UserNotExistException {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+        /*Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
         if(Objects.isNull(logueado)){
             throw new UserNotExistException("Usuario inexistente");
         }
-        List<Producto> listEntidadProductos = repository.findByMaterial(material);
+         */
+        List<Producto> listEntidadProductos = repository.findByMaterial(obtenerTipoMaterial(material));
         return mapper.entidadProductoListADtoList(listEntidadProductos);
     }
+
+    public TipoMaterial obtenerTipoMaterial(String material) {
+        for (TipoMaterial tipo : TipoMaterial.values()) {
+            if (tipo.name().equalsIgnoreCase(material)) {
+                return tipo; // Coincide con el enum, se devuelve el material
+            }
+        }
+        return null; // No coincide con el enum
+    }
+
+
 }

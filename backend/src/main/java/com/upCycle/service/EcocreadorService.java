@@ -25,7 +25,7 @@ public class EcocreadorService {
         this.ecocreadorMapper = ecocreadorMapper;
     }
 
-    public DtoEcocreadorResponse registrarEcocreador(DtoEcocreador dtoEcocreador, HttpSession session) throws UserAlreadyExistException {
+    public DtoEcocreadorResponse registrarEcocreador(DtoEcocreador dtoEcocreador) throws UserAlreadyExistException {
 
         Optional<Usuario> usuario = repository.findByEmail(dtoEcocreador.getEmail());
 
@@ -34,7 +34,7 @@ public class EcocreadorService {
         }
 
         Ecocreador user = repository.save(ecocreadorMapper.dtoEcocreadorAEntidad(dtoEcocreador));
-        session.setAttribute("usuarioLogueado", user);
+        //session.setAttribute("usuarioLogueado", user);
         return ecocreadorMapper.entidadADtoEcocreador(user);
     }
 }
