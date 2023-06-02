@@ -32,16 +32,12 @@ public class ProductoController {
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto){
+    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto) throws UserNotExistException, UserUnauthorizedException {
 
-        try {
             //Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
             DtoProductoResponse productoResponse = service.crearProducto(dtoProducto);
             return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
 
-        }catch (Exception ex){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
 
     }
 
