@@ -36,26 +36,26 @@ public class UsuarioController {
 
     @CrossOrigin
     @PostMapping(path = "/registerEcoproveedor")
-    public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor, HttpSession session) throws UserAlreadyExistException {
+    public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor) throws UserAlreadyExistException {
 
-        DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor, session);
+        DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
     @CrossOrigin
     @PostMapping(path = "/registerEcocreador")
-    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession  session) throws UserAlreadyExistException {
+    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador) throws UserAlreadyExistException {
 
-        DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador, session);
+        DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
     @CrossOrigin
     @PostMapping(path = "/login")
-    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
+    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest) throws UserNotExistException {
 
         try {
-            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
+            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest);
             return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
         }catch (Exception ex){

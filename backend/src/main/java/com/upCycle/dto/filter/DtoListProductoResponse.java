@@ -1,4 +1,4 @@
-package com.upCycle.dto.request;
+package com.upCycle.dto.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoProducto {
+public class DtoListProductoResponse {
+
+    private Long id;
 
     private String description;
 
@@ -21,5 +23,5 @@ public class DtoProducto {
 
     private String image;
 
-    private Long idEcoproveedor;
+    private String companyName;
 }
