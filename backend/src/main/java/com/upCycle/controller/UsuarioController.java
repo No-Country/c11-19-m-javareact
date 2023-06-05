@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/api/auth")
-@CrossOrigin(origins = "https://c11-19-m-javareact-production.up.railway.app/")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     private final EcoproveedorService ecoproveedorService;

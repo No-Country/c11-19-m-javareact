@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/api/product")
-@CrossOrigin(origins = "https://c11-19-m-javareact-production.up.railway.app/")
+@CrossOrigin(origins = "*")
 public class ProductoController {
 
     private final ProductoService service;
