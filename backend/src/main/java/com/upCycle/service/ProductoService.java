@@ -89,7 +89,7 @@ public class ProductoService {
         }
     }
 
-    public List<DtoProductoResponse> listarProductos() throws UserNotExistException {
+    public List<DtoProductoResponse> listarProductos() {
 
         /*Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
         if(Objects.isNull(logueado)){
@@ -141,5 +141,9 @@ public class ProductoService {
         return null; // No coincide con el enum
     }
 
+    public List<DtoProductoResponse> listarPorBarraBusqueda(String cadena) {
 
+        List<Producto> listEntidadProductos = repository.findByDescripcionContainingIgnoreCase(cadena);
+        return mapper.entidadProductoListADtoList(listEntidadProductos);
+    }
 }
