@@ -42,15 +42,10 @@ public class ProductoController {
     }
 
     @GetMapping(path = "/getAll")
-    public ResponseEntity<List<DtoProductoResponse>> listarProductos() throws UserNotExistException {
+    public ResponseEntity<List<DtoProductoResponse>> listarProductos() {
 
-            List<DtoProductoResponse> dtoProductoResponse = service.listarProductos();
-            if(!dtoProductoResponse.isEmpty()){
-                return ResponseEntity.ok().body(dtoProductoResponse);
-            }else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
-            }
-
+        List<DtoProductoResponse> dtoProductoResponse = service.listarProductos();
+        return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.ok(new ArrayList<>());
 
     }
 
@@ -74,7 +69,17 @@ public class ProductoController {
     public ResponseEntity<List<DtoProductoResponse>> filtrarPorMaterial(@PathVariable String material){
         try {
             List<DtoProductoResponse> dtoProductoResponse = service.listarPorMaterial(material);
-            return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ArrayList<>());
+            return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.ok(new ArrayList<>());
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping(path = "/find/{cadena}")
+    public ResponseEntity<List<DtoProductoResponse>> filtrarBarraDeBusqueda(@PathVariable String cadena){
+        try {
+            List<DtoProductoResponse> dtoProductoResponse = service.listarPorBarraBusqueda(cadena);
+            return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.ok(new ArrayList<>());
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

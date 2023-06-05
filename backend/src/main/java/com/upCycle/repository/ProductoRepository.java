@@ -9,4 +9,6 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     List<Producto> findByMaterial(TipoMaterial material);
+
+    List<Producto> findByDescripcionContainingIgnoreCase(String cadena);
 }
