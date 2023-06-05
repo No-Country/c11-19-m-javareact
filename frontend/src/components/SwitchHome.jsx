@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Container = styled.span`
+const Container = styled.div`
   display: inline-block;
   width: 180px;
   height: 30px;
@@ -52,9 +52,11 @@ const TextContainer = styled.div`
 `
 
 const Text = styled.span`
+  z-index: 10;
   margin-right: 10px;
   margin-left: 10px;
-  margin-top: -10px;
+  margin-top: -32px;
+  color: #374444;
 `
 
 const Switch = () => {
@@ -69,11 +71,11 @@ const Switch = () => {
       <ToggleContainer to='/login'>
         <ToggleButton type='checkbox' checked={isActive} onChange={handleToggle} />
         <ToggleSwitch isActive={isActive} to='/register' />
+        <TextContainer>
+          <Text isActive={isActive}>Ingresar</Text>
+          <Text isActive={isActive}>Registrarse</Text>
+        </TextContainer>
       </ToggleContainer>
-      <TextContainer>
-        <Text>Ingresar</Text>
-        <Text>Registrarse</Text>
-      </TextContainer>
     </Container>
   )
 }
