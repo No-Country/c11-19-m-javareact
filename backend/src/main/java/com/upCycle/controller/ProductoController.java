@@ -42,18 +42,15 @@ public class ProductoController {
     }
 
     @GetMapping(path = "/getAll")
-    public ResponseEntity<List<DtoProductoResponse>> listarProductos(){
+    public ResponseEntity<List<DtoProductoResponse>> listarProductos() throws UserNotExistException {
 
-        try{
             List<DtoProductoResponse> dtoProductoResponse = service.listarProductos();
             if(!dtoProductoResponse.isEmpty()){
                 return ResponseEntity.ok().body(dtoProductoResponse);
             }else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<>());
             }
-        }catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
 
     }
 
