@@ -4,6 +4,8 @@ import Selector from "./Selector";
 import { useState } from "react";
 import StyledInput from "./StyledInput";
 import ImgSelector from "./ImgSelector";
+import { addProduct } from "../../services/api/products/instances";
+import axios from "axios";
 
 const StyledForm = styled.form`
   display: flex;
@@ -163,15 +165,26 @@ function Publication() {
   }
 
   // Funcion para el submit
+  function post(form) {
+    addProduct
+      .post("create", form)
+      .then((response) => console.log("Publicación realizada con éxito"))
+      .catch((error) => console.log("Hubo un error en la publicacion" + error));
+  }
 
   function submitHandler(event) {
     event.preventDefault();
+    function normalizeItem(texto) {
+      const resultado = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return resultado
+    }
     const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ \-(),":.]+$/;
 
     const data = Object.fromEntries(new FormData(event.target));
     data.image = ImgURL;
     data.location = ubicacion;
-    data.material = material;
+    data.material = normalizeItem(material)
+    data.idEcoproveedor = 3;
     JSON.stringify(data);
     console.log(data);
 
@@ -185,13 +198,7 @@ function Publication() {
       data.location !== "Ubicación del material" &&
       data.material !== "Tipo de meterial"
     ) {
-      console.log(
-        "Si ves esto es porque se cargaron todos los datos con éxito"
-      );
-      console.log("Insertar EndPoint POST en esta Funcion");
-      console.log(
-        "Despues de confirmar el envio correcto del POST, Informar publicacion correcta y agregar redirección"
-      );
+      post(data);
     }
   }
 
