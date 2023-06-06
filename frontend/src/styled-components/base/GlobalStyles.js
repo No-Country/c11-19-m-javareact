@@ -36,7 +36,8 @@ const GlobalStyles = createGlobalStyle`
     --headline-medium: normal normal 900 25px/30px 'Montserrat', sans-serif;
     --heading-small: normal normal 900 20px/24px 'Montserrat', sans-serif;
     --heading-xsmall: normal normal 900 16px/19px 'Montserrat', sans-serif;
-
+    --heading-xxsmall: normal normal 900 10px/12px 'Montserrat', sans-serif;
+    
     --paragraph-l-bold: normal normal 700 16px/24px 'Mukta', sans-serif;
     --paragraph-m-bold: normal normal 700 12px/22px 'Mukta', sans-serif;
     --paragraph-s-bold: normal normal 700 10px/16px 'Mukta', sans-serif;
