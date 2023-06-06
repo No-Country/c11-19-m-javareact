@@ -32,7 +32,6 @@ public class ProductoService {
 
     private final ProductoRepository repository;
     private final ProductoMapper mapper;
-
     private final EcoproveedorMapper EcoproveedorMapper;
     private final UsuarioRepository usuarioRepository;
     private final UbicacionService ubicacionService;
