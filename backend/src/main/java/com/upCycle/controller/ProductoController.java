@@ -7,6 +7,7 @@ import com.upCycle.entity.Producto;
 import com.upCycle.entity.Usuario;
 import com.upCycle.exception.UserNotExistException;
 import com.upCycle.exception.UserUnauthorizedException;
+import com.upCycle.service.EcoproveedorService;
 import com.upCycle.service.ProductoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,12 @@ import java.util.List;
 public class ProductoController {
 
     private final ProductoService service;
+    private final EcoproveedorService ecoproveedorService;
 
     @Autowired
-    public ProductoController(ProductoService service) {
+    public ProductoController(ProductoService service, EcoproveedorService ecoproveedorService) {
         this.service = service;
+        this.ecoproveedorService = ecoproveedorService;
     }
 
     @PostMapping(path = "/create")
@@ -37,7 +40,6 @@ public class ProductoController {
             //Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
             DtoProductoResponse productoResponse = service.crearProducto(dtoProducto);
             return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
-
 
     }
 
@@ -80,6 +82,15 @@ public class ProductoController {
             return !dtoProductoResponse.isEmpty() ? ResponseEntity.ok(dtoProductoResponse) : ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ArrayList<>());
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping(path = "/getPoints/{idEcoproveedor}")
+    public ResponseEntity<Integer> getEcopuntos(@PathVariable Long idEcoproveedor){
+        try {
+            return ResponseEntity.ok(ecoproveedorService.getEcopuntos(idEcoproveedor));
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
         }
     }
 

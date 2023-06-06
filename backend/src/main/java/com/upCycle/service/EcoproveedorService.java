@@ -6,6 +6,7 @@ import com.upCycle.entity.Ecoproveedor;
 import com.upCycle.entity.Producto;
 import com.upCycle.entity.Usuario;
 import com.upCycle.exception.UserAlreadyExistException;
+import com.upCycle.exception.UserNotExistException;
 import com.upCycle.mapper.EcoproveedorMapper;
 import com.upCycle.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
@@ -45,5 +46,10 @@ public class EcoproveedorService {
         int puntos = ecoproveedor.calcularPuntosTotales();
         ecoproveedor.setPuntos(puntos);
         //repository.save(ecoproveedor);
+    }
+
+    public Integer getEcopuntos(Long id) throws UserNotExistException {
+        Ecoproveedor ecoproveedor = repository.buscarEcoproveedorPorId(id).orElseThrow(() -> new UserNotExistException("El usuario no existe"));
+        return ecoproveedor.getPuntos();
     }
 }
