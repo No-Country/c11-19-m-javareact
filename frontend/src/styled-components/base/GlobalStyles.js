@@ -6,6 +6,21 @@ const GlobalStyles = createGlobalStyle`
     --text-one: #1c2029;
     --text-two: #ffffff;
     --text-three: #717172;
+    --green-1: #b8e7d3;
+    --green-2: #7FD1AE;
+    --green-3: #99C2A2;
+    --green-4: #4D686D;
+    --orange-1: #F8A53A;
+    --orange-2:#F69110;
+    --white: #F3F3F3;
+    --gray-1: #C7D1D1;
+    --gray-2: #8EA4A4;
+    --gray-3: #5b7171;
+    --gray-4: #374444;
+    --red-alert: #ff453a;
+    --yellow-alert: #ffd60a;
+    --green-alert: #30d158;
+
     // BACKGROUNDS
     --background-one: #e0e1e9;
     --background-two: #ebbbbb;
@@ -13,6 +28,21 @@ const GlobalStyles = createGlobalStyle`
     // TYPOGRAPHY
     --family-one: 'Mukta', sans-serif;
     --family-two: 'Montserrat', sans-serif;
+
+    // TYPOGRAPHY SIZE (font property):
+    --heading-xxlarge: normal normal 900 49px/58px 'Montserrat', sans-serif;
+    --heading-xlarge: normal normal 900 39px/47px 'Montserrat', sans-serif;
+    --headline-large: normal normal 900 31px/38px 'Montserrat', sans-serif;
+    --headline-medium: normal normal 900 25px/30px 'Montserrat', sans-serif;
+    --heading-small: normal normal 900 20px/24px 'Montserrat', sans-serif;
+    --heading-xsmall: normal normal 900 16px/19px 'Montserrat', sans-serif;
+
+    --paragraph-l-bold: normal normal 700 16px/24px 'Mukta', sans-serif;
+    --paragraph-m-bold: normal normal 700 12px/22px 'Mukta', sans-serif;
+    --paragraph-s-bold: normal normal 700 10px/16px 'Mukta', sans-serif;
+    --paragraph-l: normal normal 300 16px/24px 'Mukta', sans-serif;
+    --paragraph-m: normal normal 300 12px/22px 'Mukta', sans-serif;
+    --paragraph-s: normal normal 300 10px/16px 'Mukta', sans-serif;
   }
 
   * {
