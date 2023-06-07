@@ -3,25 +3,45 @@ import SwitchHome from './SwitchHome'
 
 const HeaderStyled = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 3rem 0;
   background: #374444;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 5rem;
+
+  @media (min-width: 48rem) {
+    height: 9.75rem;
+  }
+  @media (min-width: 48.0625rem) {
+    height: 9.75rem;
+  }
+`
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
 `
 
 const Logo = styled.img`
-  height: 40px;
-  max-width: 150px;
-  max-height: 40px;
-  max-width: 140px;
+  width: 152px;
+
+  @media (min-width: 48rem) {
+    width: 18.75rem;
+  }
+  @media (min-width: 64rem) {
+    width: 25rem;
+  }
 `
 
 const Header = () => {
   return (
     <HeaderStyled>
-      <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
-      <SwitchHome />
+      <HeaderContainer>
+        <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
+        <SwitchHome />
+      </HeaderContainer>
     </HeaderStyled>
   )
 }
