@@ -4,6 +4,7 @@ import ImgPerfil from '../assets/img/PortadaPerfil.png'
 import ImgBackground from '../assets/img/Group.png'
 import BackArrow from '../assets/img/flecha.png'
 import ImgLupa from '../assets/img/lupa.png'
+import React from 'react'
 
 import ProductSlider from '../components/ProductSlider'
 import ButtonSlider from '../components/ButtonSlider'
@@ -13,7 +14,7 @@ const FondoPagina = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  height: 435px;
+  height: 60%;
   width: 100%;
 `
 
@@ -31,6 +32,14 @@ const SearchInput = styled.input`
   background-color: white;
   height: 70%;
   width: 85%;
+  outline: none;
+
+`
+
+const TextSliderProduct = styled.h2`
+  font-size: 1rem;
+  padding: 3px 18px;
+  margin-top: 22px;
 `
 
 const TextSearchProduct = styled.h3`
@@ -49,7 +58,7 @@ const SearchContainer = styled.div`
   justify-content: space-between;
   background-color: white;
   width: 60%;
-  height: 22px;
+  height: 25px;
   border-radius: 15px;
   padding: 2px 11px;
   margin: 6px 18px;
@@ -57,26 +66,29 @@ const SearchContainer = styled.div`
 `
 
 const ImgLupaSearch = styled.img`
-  width: 15%;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   padding: 2px;
 `
 
-const UsuaroPerfilFoto = styled.img`
+const UsuarioPerfilFoto = styled.img`
   width: 100%;
-  height: 200px;
+  height: 60vh;
 `
 
 const ButtonFilterContainer = styled.div`
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 15px;
+  margin-top: 22px;
+  padding: 0px 15px;
 `
 
 const ContainerSlaider = styled.div`
+  padding: 0px 15px;
   margin-top: 3px;
   width: 100%;
+  margin-top: 22px;
 `
 
 function InfoUser() {
@@ -87,8 +99,8 @@ function InfoUser() {
           <img src={BackArrow} alt='Back arrow' />
         </BackArrowContainer>
 
-        <UsuaroPerfilFoto src={ImgPerfil} alt='Foto de perfi' />
-        <TextInfoUser>Hola, Andrea</TextInfoUser>
+        <UsuarioPerfilFoto src={ImgPerfil} alt='Foto de perfi' />
+        <TextInfoUser>Hola, Valentina</TextInfoUser>
         <TextSearchProduct>¿Qué vas a crear hoy?</TextSearchProduct>
 
         <SearchContainer>
@@ -100,12 +112,12 @@ function InfoUser() {
           <ButtonSlider />
         </ButtonFilterContainer>
 
-        <h2>Favoritos</h2>
+        <TextSliderProduct>Favoritos</TextSliderProduct>
         <ContainerSlaider>
           <ProductSlider />
         </ContainerSlaider>
+        <TextSliderProduct>Recomendados para ti</TextSliderProduct>
         <ContainerSlaider>
-          <h2>Recomendados para ti</h2>
           <ProductSlider />
         </ContainerSlaider>
       </FondoPagina>
