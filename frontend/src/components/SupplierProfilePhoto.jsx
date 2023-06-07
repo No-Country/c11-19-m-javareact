@@ -1,43 +1,41 @@
 import styled from 'styled-components'
 
-const Hexagon = styled.div`
-  width: 6.25rem;
-  height: 10.825rem;
-  background-color: #f2f2f2;
-  position: relative;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+const ImgStyled = styled.img`
+  clip-path: url(#myClip);
+  width: 7.6875rem;
+  height: 8.9375rem;
+
+  @media (min-width: 48rem) {
+    height: 9.375rem;
+    width: 10.8125rem;
+  }
 `
 
-const HexagonContent = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-const HexagonText = styled.span`
-  font-size: 1rem;
-`
-
-const HexagonComponent = ({ text }) => (
-  <Hexagon>
-    <HexagonContent>
-      <HexagonText>{text}</HexagonText>
-    </HexagonContent>
-  </Hexagon>
-)
-
-const SupplierProfilePhoto = ({ photoURL }) => {
+const SupplierProfilePhoto = ({ imageURL = 'https://res.cloudinary.com/drc41imav/image/upload/v1686146558/profile_picture/ctwczniwf52skwusfbtb.jpg' }) => {
   return (
-    <Hexagon>
-      <HexagonContent>
-        <HexagonText>xd</HexagonText>
-      </HexagonContent>
-    </Hexagon>
+    <>
+      <ImgStyled src={imageURL} />
+      <svg width='0' height='0'>
+        <clipPath id='myClip' clipPathUnits='objectBoundingBox'>
+          <polygon
+            points='.41,.02 .59,.02
+                          .91,.16 1,.33
+                          1,.66 .91,.83
+                          .59,.98 .41,.98
+                          .09,.83 0,.66
+                          0,.33 .09,.16
+                          '
+          />
+          <circle cx='.5' cy='.2' r='.2' />
+          <circle cx='.5' cy='.8' r='.2' />
+          <circle cx='.8' cy='.33' r='.2' />
+          <circle cx='.8' cy='.66' r='.2' />
+          <circle cx='.2' cy='.33' r='.2' />
+          <circle cx='.2' cy='.66' r='.2' />
+        </clipPath>
+      </svg>
+    </>
   )
 }
+
 export { SupplierProfilePhoto }
