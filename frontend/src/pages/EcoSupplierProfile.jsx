@@ -13,9 +13,8 @@ const MainStyled = styled.main`
 const ProfileBannerContainer = styled.div`
   width: 100%;
   background-image: url('./public/img/supplier/supplier-background.svg');
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  display: grid;
+  place-content: center;
 `
 
 const NewMaterialStyled = styled.button`
