@@ -8,10 +8,10 @@ const EcoCreatorForm = ({ form, handleOnChange }) => {
 
   const handleChangeImage = (imgURL) => {
     setImgUrl(imgURL[0])
-    handleOnChange('', imgUrl)
   }
 
   const handleSubmit = () => {
+    handleOnChange('', imgUrl)
     console.log(form)
   }
 
