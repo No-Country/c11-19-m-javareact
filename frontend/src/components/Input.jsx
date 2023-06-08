@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { verifyInput } from '../utilities/verifyInput'
 import styled from 'styled-components'
 
-const LabelStyled = styled.label``
+const LabelStyled = styled.label`
+  text-align: left;
+`
 
 const InputStyled = styled.input`
   padding: 8px 16px;
