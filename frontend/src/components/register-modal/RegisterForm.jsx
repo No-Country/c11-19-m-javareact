@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { UserRolSelector } from './UserRolSelector'
 import { GlobalRegisterForm } from './GlobalRegisterForm'
 import { EcoCreatorForm } from './EcoCreatorForm'
+import { EcoSupplierForm } from './EcoSupplierForm'
 import hexagonMobileBg from '../../assets/img/hexagon-mobile-bg.svg'
 import hexagonBg from '../../assets/img/hexagon-desktop-bg.svg'
 // import Boton from './Boton'
@@ -53,7 +54,8 @@ const RegisterForm = () => {
     // step 3 for eco creator only
     occupation: '',
     // step 3 for eco supplier only
-    cuitNumber: '',
+    legalName: '',
+    imageUrl: '',
     rememberMe: false,
     cuit: 0,
     step: 1
@@ -71,17 +73,14 @@ const RegisterForm = () => {
     }
   }
 
-  const handleRememberMeChange = (e) => {
-    const checked = e.target.checked
-    setForm((prevForm) => ({
-      ...prevForm,
-      rememberMe: checked
-    }))
-  }
-
-  const handleOnChange = (ev) => {
-    // const { name, value, type, checked } = ev.target
+  const handleOnChange = (ev, newImgUrl = '') => {
     setForm((prevForm) => {
+      if (newImgUrl.length > 6) {
+        return {
+          ...prevForm,
+          imageUrl: newImgUrl
+        }
+      }
       return {
         ...prevForm,
         [ev.target.name]: ev.target.value
@@ -97,6 +96,7 @@ const RegisterForm = () => {
         {form.step === 1 && <UserRolSelector handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
         {form.step === 2 && <GlobalRegisterForm handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
         {form.step === 3 && <>{form.userType === 'ecocreador' && <EcoCreatorForm handleOnChange={handleOnChange} form={form} />}</>}
+        {form.step === 3 && <>{form.userType === 'ecoproveedor' && <EcoSupplierForm handleOnChange={handleOnChange} form={form} />}</>}
       </FormContainer>
     </BgForm>
   )
