@@ -5,6 +5,10 @@ const FormRoleContainer = styled.div`
   width: 16.3125rem;
   text-align: center;
   font: var(--headline-xxs);
+  @media screen and (min-width: 48.0625rem) {
+    width: 29.375rem;
+    font: var(--heading-xsmall);
+  }
 `
 const FormRolTitle = styled.h5`
   font-size: 1.25rem;
@@ -12,6 +16,9 @@ const FormRolTitle = styled.h5`
   font: var(--heading-small);
   color: var(--gray-3);
   margin-bottom: 1rem;
+  @media screen and (min-width: 48.0625rem) {
+    width: 29.375rem;
+  }
 `
 
 const RadioButtonContainer = styled.div`
