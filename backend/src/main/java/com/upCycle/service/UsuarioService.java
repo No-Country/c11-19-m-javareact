@@ -32,24 +32,33 @@ public class UsuarioService {
         this.ecocreadorMapper = ecocreadorMapper;
     }
 
-    public DtoUsuarioResponse iniciarSession(DtoUsuario dtoUsuario) throws UserNotExistException {
+    public DtoUsuarioResponse iniciarSession(DtoUsuario dtoUsuario, HttpSession session){
 
         Optional<Usuario> oUser = repository.findByEmail(dtoUsuario.getEmail());
-        Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
-
-        if(user.getRol().equals(Rol.ECOPROVEEDOR)){
-            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(user.getId());
-            //session.setAttribute("usuarioLogueado", oEcoproveedor.get());
-            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
-
-        }else if(user.getRol().equals(Rol.ECOCREADOR)){
-            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(user.getId());
-            //session.setAttribute("usuarioLogueado", oEcocreador.get());
-            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
-        }else {
+        if(oUser.isEmpty()){
             return null;
         }
+        //Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
+        Usuario usuario = oUser.get();
+        if(usuario.getRol().equals(Rol.ECOPROVEEDOR)){
+            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(usuario.getId());
+            if(oEcoproveedor.isPresent()){
+                Ecoproveedor ecoproveedor = oEcoproveedor.get();
+                session.setAttribute("usuarioLogueado", ecoproveedor);
+                return ecoproveedorMapper.entidadADtoEcoproveedor(ecoproveedor);
+            }
+            //return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
 
+        }else if(usuario.getRol().equals(Rol.ECOCREADOR)){
+            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(usuario.getId());
+            if(oEcocreador.isPresent()){
+                Ecocreador ecocreador = oEcocreador.get();
+                session.setAttribute("usuarioLogueado", ecocreador);
+                return ecocreadorMapper.entidadADtoEcocreador(ecocreador);
+            }
+            //return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
+        }
+        return null;
     }
     public boolean cerrarSession(HttpSession session) {
 
@@ -59,5 +68,27 @@ public class UsuarioService {
             return true;
         }
         return false;
+    }
+
+    public DtoUsuarioResponse getUsuario(HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        //Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
+        //Usuario usuario = oUser.get();
+        if(usuario.getRol().equals(Rol.ECOPROVEEDOR)){
+            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(usuario.getId());
+            if(oEcoproveedor.isPresent()){
+                Ecoproveedor ecoproveedor = oEcoproveedor.get();
+                return ecoproveedorMapper.entidadADtoEcoproveedor(ecoproveedor);
+            }
+
+        }else if(usuario.getRol().equals(Rol.ECOCREADOR)){
+            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(usuario.getId());
+            if(oEcocreador.isPresent()){
+                Ecocreador ecocreador = oEcocreador.get();
+                return ecocreadorMapper.entidadADtoEcocreador(ecocreador);
+            }
+        }
+        return null;
     }
 }
