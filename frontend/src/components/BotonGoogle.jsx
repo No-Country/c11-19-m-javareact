@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import GoogleIcon from './icons/GoogleIcon'
 
 const Button = styled.button`
-  background: #fff;
+  background: var(--white);
   font-size: 0.8em;
-  color: #374444;
+  color: var(--grey-4);
   border: 1px solid #e0e0e5;
   border-radius: 30px;
   padding: 10px;
@@ -14,6 +14,7 @@ const Button = styled.button`
   justify-content: center;
   gap: 0.5rem;
   width: 16.5rem;
+  margin-bottom: 5px;
   & svg {
     width: 24px;
   }
@@ -27,6 +28,7 @@ const Button = styled.button`
   }
   @media screen and (min-width: 769px) {
     width: 27.625rem;
+    margin-bottom: 10px;
   }
 `
 
