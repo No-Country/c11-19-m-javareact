@@ -8,11 +8,13 @@ import { EcoCreatorForm } from './EcoCreatorForm'
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   font-weight: 800;
-`
-
-const FormText = styled.label`
-  color: #8ea4a4;
+  padding-top: 50px;
+  width: 18.5rem;
+  @media screen and (min-width: 48.0625rem) {
+    width: 29.375rem;
+  }
 `
 
 const RegisterForm = () => {
@@ -69,7 +71,6 @@ const RegisterForm = () => {
 
   return (
     <FormContainer>
-      <h1>prueba de texto</h1>
       {form.step === 1 && <UserRolSelector handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
       {form.step === 2 && <GlobalRegisterForm handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
       {form.step === 3 && <>{form.userType === 'ecocreador' && <EcoCreatorForm handleOnChange={handleOnChange} form={form} />}</>}
