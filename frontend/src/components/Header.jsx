@@ -3,6 +3,9 @@ import SwitchHome from './SwitchHome'
 import { Link } from 'react-router-dom'
 
 const HeaderStyled = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,12 +14,12 @@ const HeaderStyled = styled.header`
   height: 5rem;
 
   @media (min-width: 48rem) {
-    height: 9.75rem;
+    height: 5.75rem;
   }
   @media (min-width: 48.0625rem) {
-    height: 9.75rem;
+    height: 5.75rem;
   }
-`
+`;
 
 const HeaderRedirect = styled(Link)`
   cursor: pointer;
@@ -33,10 +36,10 @@ const Logo = styled.img`
   width: 152px;
 
   @media (min-width: 48rem) {
-    width: 18.75rem;
+    width: 12.75rem;
   }
   @media (min-width: 64rem) {
-    width: 25rem;
+    width: 15rem;
   }
 `
 
@@ -45,7 +48,7 @@ const Header = () => {
     <HeaderStyled>
       <HeaderContainer>
         <HeaderRedirect to='/'>
-          <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
+          <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685999114/UpCircle/Logo_zjplgv.svg' alt='Logo' />
         </HeaderRedirect>
         <SwitchHome />
       </HeaderContainer>
