@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import SwitchHome from './SwitchHome'
+import { Link } from 'react-router-dom'
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -15,6 +16,10 @@ const HeaderStyled = styled.header`
   @media (min-width: 48.0625rem) {
     height: 9.75rem;
   }
+`
+
+const HeaderRedirect = styled(Link)`
+  cursor: pointer;
 `
 
 const HeaderContainer = styled.div`
@@ -39,7 +44,9 @@ const Header = () => {
   return (
     <HeaderStyled>
       <HeaderContainer>
-        <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
+        <HeaderRedirect to='/'>
+          <Logo src='https://res.cloudinary.com/drc41imav/image/upload/v1685219349/UpCircle/LogoD_azrawy.svg' alt='Logo' />
+        </HeaderRedirect>
         <SwitchHome />
       </HeaderContainer>
     </HeaderStyled>
