@@ -34,6 +34,7 @@ const GlobalStyles = createGlobalStyle`
     --heading-xlarge: normal normal 900 39px/47px 'Montserrat', sans-serif;
     --headline-large: normal normal 900 31px/38px 'Montserrat', sans-serif;
     --headline-medium: normal normal 900 25px/30px 'Montserrat', sans-serif;
+    --headline-xxs: normal normal 900 12px/14px 'Montserrat', sans-serif;
     --heading-small: normal normal 900 20px/24px 'Montserrat', sans-serif;
     --heading-xsmall: normal normal 900 16px/19px 'Montserrat', sans-serif;
     --heading-xxsmall: normal normal 900 10px/12px 'Montserrat', sans-serif;
