@@ -50,14 +50,14 @@ public class ProductoService {
 
     public DtoProductoResponse crearProducto(DtoProducto dtoProducto, HttpSession session) throws UserUnauthorizedException, UserNotExistException {
 
-        Optional<Usuario> oUser = usuarioRepository.findByEmail(session.getId());
+        Optional<Usuario> oUser = usuarioRepository.findById(dtoProducto.getIdEcoproveedor());
         if(oUser.isEmpty()){
             return null;
         }
-
+        Usuario user = oUser.get();
         //Ecoproveedor ecoproveedor = usuarioRepository.buscarEcoproveedorPorId(dtoProducto.getIdEcoproveedor()).orElseThrow(() -> new UserNotExistException("El usuario no existe"));
 
-        Optional<Ecoproveedor> oEcoproveedor = usuarioRepository.buscarEcoproveedorPorId(Long.valueOf(session.getId()));
+        Optional<Ecoproveedor> oEcoproveedor = usuarioRepository.buscarEcoproveedorPorId(user.getId());
         if(oEcoproveedor.isEmpty()){
             return null;
         }

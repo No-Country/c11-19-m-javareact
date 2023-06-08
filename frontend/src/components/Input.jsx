@@ -2,14 +2,20 @@ import { useState } from 'react'
 import { verifyInput } from '../utilities/verifyInput'
 import styled from 'styled-components'
 
-const LabelStyled = styled.label``
+const LabelStyled = styled.label`
+  text-align: left;
+`
 
 const InputStyled = styled.input`
   padding: 8px 16px;
-  border: 0.5px solid #808194;
+  border: 0.5px solid var(--gray-2);
   border-radius: 30px;
   position: relative;
   background: #fff;
+  width: 16.5rem;
+  @media screen and (min-width: 769px) {
+    width: 27.625rem;
+  }
 `
 const ErrorStyled = styled.p`
   color: red;
