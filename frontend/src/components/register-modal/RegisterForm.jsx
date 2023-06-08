@@ -3,16 +3,40 @@ import styled from 'styled-components'
 import { UserRolSelector } from './UserRolSelector'
 import { GlobalRegisterForm } from './GlobalRegisterForm'
 import { EcoCreatorForm } from './EcoCreatorForm'
+import hexagonMobileBg from '../../assets/img/hexagon-mobile-bg.svg'
+import hexagonBg from '../../assets/img/hexagon-desktop-bg.svg'
 // import Boton from './Boton'
 
+const BgForm = styled.div`
+  background-image: url(${hexagonMobileBg});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 100%;
+  height: 500px;
+  @media screen and (min-width: 48.0625rem) {
+    background-image: url(${hexagonBg});
+    background-size: cover;
+    background-position: center top;
+    height: 100%;
+  }
+`
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   font-weight: 800;
-`
-
-const FormText = styled.label`
-  color: #8ea4a4;
+  margin-top: 3.125rem;
+  padding-top: 3.125rem;
+  padding: 3rem 1.5rem 2rem 1.5rem;
+  width: 19.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0.25rem 1rem rgba(0, 0, 0, 0.16);
+  background-color: var(--white);
+  @media screen and (min-width: 48.0625rem) {
+    padding: 3.125rem 7.1875rem 3.125rem 7.1875rem;
+    width: 42rem;
+  }
 `
 
 const RegisterForm = () => {
@@ -68,12 +92,13 @@ const RegisterForm = () => {
   console.log(form)
 
   return (
-    <FormContainer>
-      <h1>prueba de texto</h1>
-      {form.step === 1 && <UserRolSelector handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
-      {form.step === 2 && <GlobalRegisterForm handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
-      {form.step === 3 && <>{form.userType === 'ecocreador' && <EcoCreatorForm handleOnChange={handleOnChange} form={form} />}</>}
-    </FormContainer>
+    <BgForm>
+      <FormContainer>
+        {form.step === 1 && <UserRolSelector handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
+        {form.step === 2 && <GlobalRegisterForm handleOnChange={handleOnChange} form={form} handleSubmit={handleSubmit} />}
+        {form.step === 3 && <>{form.userType === 'ecocreador' && <EcoCreatorForm handleOnChange={handleOnChange} form={form} />}</>}
+      </FormContainer>
+    </BgForm>
   )
 }
 

@@ -1,32 +1,43 @@
-import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useState } from 'react'
+import { Input } from '../components/Input'
+import { BotonGoogle } from '../components/BotonGoogle'
+import { useAuth } from '../hooks/auth/useAuth'
 import Boton from './Boton'
-import PasswordField from './PasswordField'
-import EmailInput from './InputEmail'
-import BotonGoogle from './BotonGoogle'
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-  align-text: center;
+  text-align: center;
 `
-const RegistroFormulario = () => {
+const FormLogin = () => {
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(form)
+  }
+
   return (
-    <FormContainer>
+    <FormContainer onSubmit={handleSubmit}>
       <h5 class='form-titulo'>Ingresa a Upcircle</h5>
       <BotonGoogle>Ingresa con Google</BotonGoogle>
-      <p class='form-texto'>o ingresa con email</p>
-      <EmailInput />
-      <label>Contraseña</label>
-      <PasswordField />
-      <br />
-      <Boton>Ingresa</Boton>
-      <a href='#' class='link-login'>
-        Olvidaste tu contraseña?
-      </a>
+      <Input label='Email' name='email' type='email' value={form.email} onChange={handleOnChange} placeHolder='XXXXXXXXXXXXXXXXXXXX' />
+      <Input label='Contraseña' name='password' type='password' value={form.password} onChange={handleOnChange} placeHolder='**********' />
+      <Boton>Ingresar</Boton>
     </FormContainer>
   )
 }
 
-export default RegistroFormulario
+export { FormLogin }
