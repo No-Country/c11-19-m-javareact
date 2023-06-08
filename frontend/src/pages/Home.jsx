@@ -7,7 +7,10 @@ import { StatsHexagons } from '../components/StatsHexagons'
 
 const MainStyled = styled.main`
   display: grid;
-  gap: 0.5rem;
+  gap: 3.5rem;
+  @media screen and (min-width: 48.0625rem) {
+    gap: 7.5rem;
+  }
 `
 
 function Home() {
