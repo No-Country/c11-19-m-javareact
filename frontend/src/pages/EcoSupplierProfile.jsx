@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { EcoSupplierCard } from '../components/EcoSupplierCard'
 import { SupplierProfilePhoto } from '../components/SupplierProfilePhoto'
+import { Layout } from '../routes/Layout'
 
 const MainStyled = styled.main`
   display: flex;
@@ -40,21 +41,23 @@ const MateriasGridSection = styled.section`
 
 const EcoSupplierProfile = () => {
   return (
-    <MainStyled>
-      <ProfileBannerContainer>
-        <SupplierProfilePhoto />
-      </ProfileBannerContainer>
-      <article>
-        <h2>¡Hola, la costeleria!</h2>
-        <h3>¿Que materiales quieres compartir hoy?</h3>
-      </article>
-      <NewMaterialStyled>nuevo material</NewMaterialStyled>
-      <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
-      <MateriasGridSection>
-        <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-        <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-      </MateriasGridSection>
-    </MainStyled>
+    <Layout>
+      <MainStyled>
+        <ProfileBannerContainer>
+          <SupplierProfilePhoto />
+        </ProfileBannerContainer>
+        <article>
+          <h2>¡Hola, la costeleria!</h2>
+          <h3>¿Que materiales quieres compartir hoy?</h3>
+        </article>
+        <NewMaterialStyled>nuevo material</NewMaterialStyled>
+        <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
+        <MateriasGridSection>
+          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+        </MateriasGridSection>
+      </MainStyled>
+    </Layout>
   )
 }
 
