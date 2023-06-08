@@ -1,5 +1,6 @@
 // import values from '.';
 import styled from 'styled-components'
+import Hexagon from '../icons/Hexagon'
 
 const HeroStyled = styled.article`
   display: grid;
@@ -39,15 +40,44 @@ const Hexagon4 = styled.img`
   align-self: end;
   justify-self: center;
 `
-const Hexagon5 = styled.img`
+
+const Hexagon5 = styled.div`
+  position: relative;
   grid-area: hexagon-5;
   justify-self: end;
+  width: 6.875rem;
+  color: white;
+`
+const HexagonStyled = styled(Hexagon)`
+  position: absolute;
+  z-index: 1;
+`
+const Hexagon5Text = styled.div`
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  top: 20%;
+  left: 25%;
+
+  & h4 {
+    font-weight: 900;
+    line-height: 1.1875rem;
+  }
+  & span {
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 1.375rem;
+  }
 `
 
 const HeroText = styled.p`
   font-size: 1.25rem;
-  font-weight: 800;
+  line-height: 1.5rem;
+  font-weight: 900;
   padding: 1rem;
+  color: #5b7171;
 `
 
 const Hero = () => {
@@ -58,7 +88,14 @@ const Hero = () => {
         <Hexagon2 src='https://res.cloudinary.com/drc41imav/image/upload/v1686162463/UpCircle/hero/klx6bgwcmn5zyidbevxo.png' alt='' />
         <Hexagon3 src='https://res.cloudinary.com/drc41imav/image/upload/v1686162463/UpCircle/hero/e9zaw6jvjukipdte2mxk.png' alt='' />
         <Hexagon4 src='https://res.cloudinary.com/drc41imav/image/upload/v1686162463/UpCircle/hero/y0dmhgtytnfkednbqjm1.png' alt='' />
-        <Hexagon5 src='https://res.cloudinary.com/drc41imav/image/upload/v1686162463/UpCircle/hero/y0dmhgtytnfkednbqjm1.png' alt='' />
+        <Hexagon5>
+          <HexagonStyled fill='#37444' />
+          <Hexagon5Text>
+            <h4>10Mil</h4>
+            <h4>Kilos</h4>
+            <span>reciclados!</span>
+          </Hexagon5Text>
+        </Hexagon5>
       </HeroHexagonsContainer>
       <HeroText>¡Bienvenidx a UPCIRCLE, la plataforma donde la creatividad y la sostenibilidad se unen para transformar el mundo de la producción y el diseño!</HeroText>
     </HeroStyled>

@@ -31,6 +31,7 @@ public class EcocreadorMapper {
         dtoEcocreadorResponse.setImage(entidadEcocreador.getFoto());
         dtoEcocreadorResponse.setOccupation(entidadEcocreador.getOcupacion());
         dtoEcocreadorResponse.setEmail(entidadEcocreador.getEmail());
+        dtoEcocreadorResponse.setRol(entidadEcocreador.getRol().name());
         return dtoEcocreadorResponse;
     }
 }

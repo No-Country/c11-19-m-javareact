@@ -27,7 +27,7 @@ public class EcoproveedorService {
         this.ecoproveedorMapper = ecoproveedorMapper;
     }
 
-    public DtoEcoproveedorResponse registrarEcoproveedor(DtoEcoproveedor dtoEcoproveedor) throws UserAlreadyExistException {
+    public DtoEcoproveedorResponse registrarEcoproveedor(DtoEcoproveedor dtoEcoproveedor, HttpSession session) throws UserAlreadyExistException {
 
         Optional<Usuario> usuario = repository.findByEmail(dtoEcoproveedor.getEmail());
 
@@ -36,7 +36,7 @@ public class EcoproveedorService {
         }
 
         Ecoproveedor user = repository.save(ecoproveedorMapper.dtoEcoproveedorAEntidad(dtoEcoproveedor));
-        //session.setAttribute("usuarioLogueado", user);
+        session.setAttribute("usuarioLogueado", user);
         return ecoproveedorMapper.entidadADtoEcoproveedor(user);
     }
 
@@ -48,8 +48,9 @@ public class EcoproveedorService {
         //repository.save(ecoproveedor);
     }
 
-    public Integer getEcopuntos(Long id) throws UserNotExistException {
-        Ecoproveedor ecoproveedor = repository.buscarEcoproveedorPorId(id).orElseThrow(() -> new UserNotExistException("El usuario no existe"));
+    public Integer getEcopuntos(HttpSession session) throws UserNotExistException {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        Ecoproveedor ecoproveedor = repository.buscarEcoproveedorPorId(usuario.getId()).orElseThrow(() -> new UserNotExistException("El usuario no existe"));
         return ecoproveedor.getPuntos();
     }
 }

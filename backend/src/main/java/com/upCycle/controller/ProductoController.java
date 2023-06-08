@@ -35,10 +35,10 @@ public class ProductoController {
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto) throws UserNotExistException, UserUnauthorizedException {
+    public ResponseEntity<DtoProductoResponse> crearProducto(@RequestBody DtoProducto dtoProducto, HttpSession session) throws UserNotExistException, UserUnauthorizedException {
 
-            //Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
-            DtoProductoResponse productoResponse = service.crearProducto(dtoProducto);
+            Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
+            DtoProductoResponse productoResponse = service.crearProducto(dtoProducto, session);
             return ResponseEntity.status(HttpStatus.CREATED).body(productoResponse);
 
     }
@@ -51,8 +51,8 @@ public class ProductoController {
 
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<DtoEcoproveedorResponse> buscarEcoproveedorPorIdProdcuto(@PathVariable Long id){
+    @GetMapping(path = "/productInfo/{id}")
+    public ResponseEntity<DtoEcoproveedorResponse> buscarEcoproveedorPorIdProducto(@PathVariable Long id){
 
         try {
             DtoEcoproveedorResponse dtoEcoproveedorResponse = service.buscarEcoproveedorPorIdProdcuto(id);
@@ -87,21 +87,20 @@ public class ProductoController {
         }
     }
 
-    @GetMapping(path = "/getPoints/{idEcoproveedor}")
-    public ResponseEntity<Integer> getEcopuntos(@PathVariable Long idEcoproveedor){
+    @GetMapping(path = "/getPoints")
+    public ResponseEntity<Integer> getEcopuntos(HttpSession session){
         try {
-            return ResponseEntity.ok(ecoproveedorService.getEcopuntos(idEcoproveedor));
+            return ResponseEntity.ok(ecoproveedorService.getEcopuntos(session));
         }catch (Exception ex){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
         }
     }
-
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id, HttpSession session) {
 
         try {
-            service.eliminarProducto(id);
-            return ResponseEntity.noContent().build();
+            service.eliminarProducto(id, session);
+            return ResponseEntity.ok().build();
 
         }catch (Exception ex){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

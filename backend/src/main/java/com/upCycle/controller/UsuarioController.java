@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @Controller
 @RequestMapping(path = "/api/auth")
 @CrossOrigin(origins = "*")
@@ -35,27 +37,26 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-
     @PostMapping(path = "/registerEcoproveedor")
-    public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor) throws UserAlreadyExistException {
+    public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor, HttpSession session) throws UserAlreadyExistException {
 
-        DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor);
+        DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
     @PostMapping(path = "/registerEcocreador")
-    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador) throws UserAlreadyExistException {
+    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession session) throws UserAlreadyExistException {
 
-        DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador);
+        DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest) throws UserNotExistException {
+    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
         try {
-            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest);
-            return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
+            return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         }catch (Exception ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -71,8 +72,13 @@ public class UsuarioController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nunca se inicio session wey. Registrate para eso");
     }
 
-    @GetMapping(path = "/saludar")
-    public ResponseEntity<String> saludar(){
-        return ResponseEntity.ok("Hola equipo c11-19");
+    @GetMapping(path = "/getUserUpdate")
+    public ResponseEntity<DtoUsuarioResponse> getUsuario(HttpSession session){
+        try {
+            var usuario = usuarioService.getUsuario(session);
+            return usuario != null ? ResponseEntity.ok().body(usuario) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
