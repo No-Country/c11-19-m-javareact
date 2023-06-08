@@ -1,7 +1,6 @@
 package com.upCycle.entity;
 
 import com.upCycle.enums.TipoMaterial;
-import com.upCycle.enums.Ubicacion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,8 +33,8 @@ public class Producto implements Serializable {
     @Column(name = "kilograms")
     private Double peso;
 
-    @Column(name = "location")
-    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "ubicacionId")
     private Ubicacion ubicacion;
 
     @Column(name = "image")
@@ -50,13 +49,5 @@ public class Producto implements Serializable {
                 .filter(value -> value.name().equalsIgnoreCase(material))
                 .findFirst()
                 .orElse(null);
-    }
-    public Ubicacion ubicacionMapper(String ubicacion){
-
-        return Arrays.stream(Ubicacion.values())
-                .filter(value -> value.name().equalsIgnoreCase(ubicacion))
-                .findFirst()
-                .orElse(null);
-
     }
 }

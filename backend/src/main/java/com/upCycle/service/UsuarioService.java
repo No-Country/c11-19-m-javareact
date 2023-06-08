@@ -32,30 +32,63 @@ public class UsuarioService {
         this.ecocreadorMapper = ecocreadorMapper;
     }
 
-    public boolean iniciarSession(DtoUsuario dtoUsuario, HttpSession session) throws UserNotExistException {
+    public DtoUsuarioResponse iniciarSession(DtoUsuario dtoUsuario, HttpSession session){
 
         Optional<Usuario> oUser = repository.findByEmail(dtoUsuario.getEmail());
-        Usuario user = oUser.orElse(null);
-
-        if(user == null){
-            throw new UserNotExistException("Este usuario no existe, intente con otro correo");
+        if(oUser.isEmpty()){
+            return null;
         }
-        session.setAttribute("usuarioLogueado", user);
+        //Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
+        Usuario usuario = oUser.get();
+        if(usuario.getRol().equals(Rol.ECOPROVEEDOR)){
+            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(usuario.getId());
+            if(oEcoproveedor.isPresent()){
+                Ecoproveedor ecoproveedor = oEcoproveedor.get();
+                session.setAttribute("usuarioLogueado", ecoproveedor);
+                return ecoproveedorMapper.entidadADtoEcoproveedor(ecoproveedor);
+            }
+            //return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
 
-        return true;
-
+        }else if(usuario.getRol().equals(Rol.ECOCREADOR)){
+            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(usuario.getId());
+            if(oEcocreador.isPresent()){
+                Ecocreador ecocreador = oEcocreador.get();
+                session.setAttribute("usuarioLogueado", ecocreador);
+                return ecocreadorMapper.entidadADtoEcocreador(ecocreador);
+            }
+            //return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElseThrow(() -> new UserNotExistException("Usuario o contraseña incorrectas"));
+        }
+        return null;
     }
-    public DtoUsuarioResponse obtenerPerfil(HttpSession session) {
+    public boolean cerrarSession(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if(logueado.isEcoproveedor(Rol.ECOPROVEEDOR)){
-            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(logueado.getId());
-            return oEcoproveedor.map(ecoproveedorMapper::entidadADtoEcoproveedor).orElse(null);
-
-        }else {
-            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(logueado.getId());
-            return oEcocreador.map(ecocreadorMapper::entidadADtoEcocreador).orElse(null);
+        if (session != null) {
+            // Invalidar la sesión
+            session.invalidate();
+            return true;
         }
+        return false;
+    }
+
+    public DtoUsuarioResponse getUsuario(HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        //Usuario user = oUser.orElseThrow(() -> new UserNotExistException("Este usuario no existe, intente con otro correo"));//Corregir. Capturar excepción
+        //Usuario usuario = oUser.get();
+        if(usuario.getRol().equals(Rol.ECOPROVEEDOR)){
+            Optional<Ecoproveedor> oEcoproveedor = repository.buscarEcoproveedorPorId(usuario.getId());
+            if(oEcoproveedor.isPresent()){
+                Ecoproveedor ecoproveedor = oEcoproveedor.get();
+                return ecoproveedorMapper.entidadADtoEcoproveedor(ecoproveedor);
+            }
+
+        }else if(usuario.getRol().equals(Rol.ECOCREADOR)){
+            Optional<Ecocreador> oEcocreador = repository.buscarEcocreadorPorId(usuario.getId());
+            if(oEcocreador.isPresent()){
+                Ecocreador ecocreador = oEcocreador.get();
+                return ecocreadorMapper.entidadADtoEcocreador(ecocreador);
+            }
+        }
+        return null;
     }
 }

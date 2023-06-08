@@ -20,4 +20,6 @@ public class DtoProducto {
     private String location;
 
     private String image;
+
+    private Long idEcoproveedor;
 }

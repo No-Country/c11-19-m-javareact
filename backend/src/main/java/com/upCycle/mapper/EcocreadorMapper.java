@@ -25,11 +25,13 @@ public class EcocreadorMapper {
     public DtoEcocreadorResponse entidadADtoEcocreador(Ecocreador entidadEcocreador) {
 
         DtoEcocreadorResponse dtoEcocreadorResponse = new DtoEcocreadorResponse();
+        dtoEcocreadorResponse.setId(entidadEcocreador.getId());
         dtoEcocreadorResponse.setFirstName(entidadEcocreador.getNombre());
         dtoEcocreadorResponse.setLastName(entidadEcocreador.getApellido());
         dtoEcocreadorResponse.setImage(entidadEcocreador.getFoto());
         dtoEcocreadorResponse.setOccupation(entidadEcocreador.getOcupacion());
         dtoEcocreadorResponse.setEmail(entidadEcocreador.getEmail());
+        dtoEcocreadorResponse.setRol(entidadEcocreador.getRol().name());
         return dtoEcocreadorResponse;
     }
 }

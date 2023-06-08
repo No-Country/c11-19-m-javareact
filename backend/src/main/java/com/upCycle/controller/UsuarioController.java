@@ -5,23 +5,25 @@ import com.upCycle.dto.request.DtoEcoproveedor;
 import com.upCycle.dto.request.DtoUsuario;
 import com.upCycle.dto.response.DtoEcocreadorResponse;
 import com.upCycle.dto.response.DtoEcoproveedorResponse;
+import com.upCycle.dto.response.DtoUsuarioResponse;
 import com.upCycle.exception.UserAlreadyExistException;
 import com.upCycle.exception.UserNotExistException;
 import com.upCycle.service.EcocreadorService;
 import com.upCycle.service.EcoproveedorService;
 import com.upCycle.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @Controller
-@RequestMapping("/api/auth")
+@RequestMapping(path = "/api/auth")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     private final EcoproveedorService ecoproveedorService;
@@ -35,30 +37,48 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/registerEcoproveedor")
+    @PostMapping(path = "/registerEcoproveedor")
     public ResponseEntity<DtoEcoproveedorResponse> registrarEcoproveedor(@RequestBody DtoEcoproveedor ecoproveedor, HttpSession session) throws UserAlreadyExistException {
 
         DtoEcoproveedorResponse guardarEcoproveedor = ecoproveedorService.registrarEcoproveedor(ecoproveedor, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcoproveedor);
     }
 
-    @PostMapping("/registerEcocreador")
-    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession  session) throws UserAlreadyExistException {
+    @PostMapping(path = "/registerEcocreador")
+    public ResponseEntity<DtoEcocreadorResponse> registrarEcocreador(@RequestBody DtoEcocreador dtoEcocreador, HttpSession session) throws UserAlreadyExistException {
 
         DtoEcocreadorResponse guardarEcocreador = ecocreadorService.registrarEcocreador(dtoEcocreador, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardarEcocreador);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
+    @PostMapping(path = "/login")
+    public ResponseEntity<DtoUsuarioResponse> login(@RequestBody DtoUsuario usuarioRequest, HttpSession session) throws UserNotExistException {
 
-        return usuarioService.iniciarSession(usuarioRequest, session) ? ResponseEntity.ok("Login exitoso") : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciales inválidas");
+        try {
+            var usuarioLogueado = usuarioService.iniciarSession(usuarioRequest, session);
+            return usuarioLogueado != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioLogueado) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<?> obtenerPerfil(HttpSession session){
+    @GetMapping(path = "/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request){
 
-        var perfil = usuarioService.obtenerPerfil(session);
-        return ResponseEntity.ok(perfil);
+        HttpSession session = request.getSession(false);
+        return usuarioService.cerrarSession(session) ? ResponseEntity.ok("Session cerrada correctamente") :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nunca se inicio session wey. Registrate para eso");
+    }
+
+    @GetMapping(path = "/getUserUpdate")
+    public ResponseEntity<DtoUsuarioResponse> getUsuario(HttpSession session){
+        try {
+            var usuario = usuarioService.getUsuario(session);
+            return usuario != null ? ResponseEntity.ok().body(usuario) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

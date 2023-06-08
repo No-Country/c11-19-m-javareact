@@ -42,10 +42,12 @@ public class EcoproveedorMapper {
     public DtoEcoproveedorResponse entidadADtoEcoproveedor(Ecoproveedor ecoproveedor){
 
         DtoEcoproveedorResponse dtoEcoproveedor = new DtoEcoproveedorResponse();
+        dtoEcoproveedor.setId(ecoproveedor.getId());
         dtoEcoproveedor.setFirstName(ecoproveedor.getNombre());
         dtoEcoproveedor.setLastName(ecoproveedor.getApellido());
         dtoEcoproveedor.setLogoImage(ecoproveedor.getLogo());
         dtoEcoproveedor.setCuit(ecoproveedor.getCuit());
+        dtoEcoproveedor.setPoints(ecoproveedor.getPuntos());
         dtoEcoproveedor.setEmail(ecoproveedor.getEmail());
         dtoEcoproveedor.setCompanyName(ecoproveedor.getRazonSocial());
         dtoEcoproveedor.setRol(ecoproveedor.getRol().name());
