@@ -1,6 +1,8 @@
 import { Input } from '../Input'
 import { UploadProfileImage } from './UploadProfileImage'
 import { useState } from 'react'
+import { registerEcoCreator } from '../../services/api/user/instances'
+// import { useAuth } from '../../hooks/auth/useAuth'
 import Boton from '../Boton'
 import styled from 'styled-components'
 
@@ -18,14 +20,28 @@ const FormTituloVerde = styled.h4`
 
 const EcoCreatorForm = ({ form, handleOnChange }) => {
   const [imgUrl, setImgUrl] = useState('')
+  // const { userInfo, updateUserInfo } = useAuth()
+
+  const ecoCreatorModel = {
+    firstName: form.name,
+    lastName: form.lastName,
+    occupation: form.occupation,
+    image: imgUrl,
+    email: form.email
+  }
 
   const handleChangeImage = (imgURL) => {
     setImgUrl(imgURL[0])
   }
 
   const handleSubmit = () => {
-    handleOnChange('', imgUrl)
+    // handleOnChange('', imgUrl)
     console.log(form)
+
+    registerEcoCreator
+      .post('', ecoCreatorModel)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error))
   }
 
   return (

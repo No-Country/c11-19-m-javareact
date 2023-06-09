@@ -4,6 +4,7 @@ import { UploadProfileImage } from './UploadProfileImage'
 import Boton from '../Boton'
 import styled from 'styled-components'
 import { registerEcosupplier } from '../../services/api/user/instances'
+import { useAuth } from '../../hooks/auth/useAuth'
 
 const FormTitulo = styled.h6`
   text-align: center;
@@ -19,6 +20,7 @@ const FormTituloVerde = styled.h4`
 
 const EcoSupplierForm = ({ form, handleOnChange }) => {
   const [imgUrl, setImgUrl] = useState('')
+  const { userInfo, updateUserInfo } = useAuth()
 
   const handleChangeImage = (imgURL) => {
     setImgUrl(imgURL[0])
@@ -38,8 +40,8 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
 
     registerEcosupplier
       .post('', ecoSupplierModel)
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error))
+      .then((response) => updateUserInfo(response.data))
+      .catch((error) => console.log(error))
   }
 
   return (
