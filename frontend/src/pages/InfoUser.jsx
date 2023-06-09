@@ -16,6 +16,7 @@ import {
 } from "../services/api/products/instances";
 import ProductContact from "../components/ecoCreatorProfile/ProductContact";
 import ContactModal from "../components/contact/ContactModal";
+import { useAuth } from "../hooks/auth/useAuth";
 
 const FondoPagina = styled.div`
   background-image: url(${ImgBackground});
@@ -199,6 +200,7 @@ function InfoUser() {
     idProveedor: "",
     datosProveedor: {},
   });
+  const { userInfo } = useAuth();
 
   // const ContactStyleActive = {
   //   display: "none",
@@ -314,87 +316,90 @@ function InfoUser() {
 
   return (
     <Layout>
-      {activo.isActivo && (
-        <ContactModalStyled>
-          <DivContactCentrado>
-            <ContactModalL onClose={handleClickContact} />
-          </DivContactCentrado>
-        </ContactModalStyled>
-      )}
-
-      <FondoPagina>
-        <ContenedorTextoYFlecha>
-          {searchResults !== "" && (
-            <BackArrowContainer onClick={getBack}>
-              <img src={BackArrow} alt="Back arrow" />
-            </BackArrowContainer>
+      {userInfo && (
+        <>
+          {activo.isActivo && (
+            <ContactModalStyled>
+              <DivContactCentrado>
+                <ContactModalL onClose={handleClickContact} />
+              </DivContactCentrado>
+            </ContactModalStyled>
           )}
-          <UsuarioPerfilFoto src={ImgPerfil} alt="Foto de perfi" />
-          <TextInfoUser>Hola, Valentina</TextInfoUser>
-          <TextSearchProduct>¿Qué vas a crear hoy?</TextSearchProduct>
-        </ContenedorTextoYFlecha>
-        <SearchContainer onSubmit={handleSubmit}>
-          <SearchInput
-            placeholder="Buscar"
-            value={valorInput}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="botonSearch">
-            <ImgLupaSearch src={ImgLupa} alt="lupa" />
-          </label>
-          <FormButton type="submit" id="botonSearch" />
-        </SearchContainer>
 
-        <ButtonFilterContainer>
-          <ButtonSlider seleccion={obtenerSeleccion} />
-        </ButtonFilterContainer>
+          <FondoPagina>
+            <ContenedorTextoYFlecha>
+              {searchResults !== "" && (
+                <BackArrowContainer onClick={getBack}>
+                  <img src={BackArrow} alt="Back arrow" />
+                </BackArrowContainer>
+              )}
+              <UsuarioPerfilFoto src={ImgPerfil} alt="Foto de perfi" />
+              <TextInfoUser>Hola {userInfo.firstName} </TextInfoUser>
+              <TextSearchProduct>¿Qué vas a crear hoy?</TextSearchProduct>
+            </ContenedorTextoYFlecha>
+            <SearchContainer onSubmit={handleSubmit}>
+              <SearchInput
+                placeholder="Buscar"
+                value={valorInput}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="botonSearch">
+                <ImgLupaSearch src={ImgLupa} alt="lupa" />
+              </label>
+              <FormButton type="submit" id="botonSearch" />
+            </SearchContainer>
 
-        {selected === "" && valorInput === "" && searchResults === "" && (
-          <>
-            {/* <TextSliderProduct>Favoritos</TextSliderProduct>
+            <ButtonFilterContainer>
+              <ButtonSlider seleccion={obtenerSeleccion} />
+            </ButtonFilterContainer>
+
+            {selected === "" && valorInput === "" && searchResults === "" && (
+              <>
+                {/* <TextSliderProduct>Favoritos</TextSliderProduct>
             <ContainerSlaider>
               <ProductSlider datos={{ globalProducts }} />
             </ContainerSlaider> */}
-            <TextSliderProduct>Recomendados para ti</TextSliderProduct>
-            <ContainerSlaider>
-              <ProductSlider
-                onOpen={handleClickContact}
-                onClicks={AbrirVentana}
-              />
-            </ContainerSlaider>
-          </>
-        )}
+                <TextSliderProduct>Recomendados para ti</TextSliderProduct>
+                <ContainerSlaider>
+                  <ProductSlider
+                    onOpen={handleClickContact}
+                    onClicks={AbrirVentana}
+                  />
+                </ContainerSlaider>
+              </>
+            )}
 
-        {searchResults && valorInput !== "" && selected === "" && (
-          <ListCards>
-            {searchResults.map((producto, i) => (
-              <ProductContact
-                datos={producto}
-                key={i}
-                onClicks={AbrirVentana}
-                id={producto.id}
-                // onOpen={handleClickContact}
-              />
-            ))}
-          </ListCards>
-          // eslint-disable-next-line indent
-        )}
+            {searchResults && valorInput !== "" && selected === "" && (
+              <ListCards>
+                {searchResults.map((producto, i) => (
+                  <ProductContact
+                    datos={producto}
+                    key={i}
+                    onClicks={AbrirVentana}
+                    id={producto.id}
+                  />
+                ))}
+              </ListCards>
+              // eslint-disable-next-line indent
+            )}
 
-        {searchResults && selected !== "" && valorInput === "" && (
-          <ListCards>
-            {searchResults.map((producto, i) => (
-              <ProductContact
-                datos={producto}
-                key={producto.id}
-                // onOpen={handleClickContact}
-                onClicks={AbrirVentana}
-                id={producto.id}
-              />
-            ))}
-          </ListCards>
-          // eslint-disable-next-line indent
-        )}
-      </FondoPagina>
+            {searchResults && selected !== "" && valorInput === "" && (
+              <ListCards>
+                {searchResults.map((producto, i) => (
+                  <ProductContact
+                    datos={producto}
+                    key={producto.id}
+                    // onOpen={handleClickContact}
+                    onClicks={AbrirVentana}
+                    id={producto.id}
+                  />
+                ))}
+              </ListCards>
+              // eslint-disable-next-line indent
+            )}
+          </FondoPagina>
+        </>
+      )}
     </Layout>
   );
 }

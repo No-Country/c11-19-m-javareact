@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const Container = styled.div`
   flex: none;
   order: ${({ orden }) => orden};
   flex-grow: 0;
-`;
+`
 
 const StyledButton = styled.button`
   width: 59px;
@@ -33,7 +33,7 @@ const StyledButton = styled.button`
 
   /* Paragraph l bold */
 
-  font-family: "Mukta";
+  font-family: 'Mukta';
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -54,16 +54,16 @@ const StyledButton = styled.button`
   flex: none;
   order: 1;
   flex-grow: 0;
-`;
+`
 
-function PostButton({ orden }) {
+function PostButton({ handleClose, orden }) {
   return (
-    <Container orden={orden}>
+    <Container onClick={handleClose} orden={orden}>
       {/* <Link to="/supplier-profile"> */}
-        <StyledButton type="submit">Guardar</StyledButton>
+      <StyledButton type='submit'>Guardar</StyledButton>
       {/* </Link> */}
     </Container>
-  );
+  )
 }
 
-export default PostButton;
+export default PostButton
