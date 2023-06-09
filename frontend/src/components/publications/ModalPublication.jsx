@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import PostButton from "./PostButton";
-import Selector from "./Selector";
-import { useState } from "react";
-import StyledInput from "./StyledInput";
-import ImgSelector from "./ImgSelector";
-import { addProduct } from "../../services/api/products/instances";
-import axios from "axios";
+import styled from 'styled-components'
+import PostButton from './PostButton'
+import Selector from './Selector'
+import { useState } from 'react'
+import StyledInput from './StyledInput'
+import ImgSelector from './ImgSelector'
+import { addProduct } from '../../services/api/products/instances'
+import axios from 'axios'
 
 const StyledForm = styled.form`
   display: flex;
@@ -29,10 +29,10 @@ const StyledForm = styled.form`
   @media screen and (min-width: 48.0625rem) {
     width: 442px;
     left: calc(50% - 442px / 2);
-  top: calc(50% - 696px / 2);
-  align-items: center;
+    top: calc(50% - 696px / 2);
+    align-items: center;
   }
-`;
+`
 
 const Cerrar = styled.svg`
   width: 10px;
@@ -45,7 +45,7 @@ const Cerrar = styled.svg`
   flex: none;
   order: 0;
   flex-grow: 0;
-`;
+`
 
 const StyledH2 = styled.h2`
   width: 264px;
@@ -53,7 +53,7 @@ const StyledH2 = styled.h2`
 
   /* Headline m */
 
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 900;
   font-size: 25px;
@@ -74,9 +74,9 @@ const StyledH2 = styled.h2`
   align-self: stretch;
   flex-grow: 0;
   @media screen and (min-width: 48.0625rem) {
-width: 394px;
+    width: 394px;
   }
-`;
+`
 
 const StyledSubTitleP = styled.p`
   width: 264px;
@@ -84,7 +84,7 @@ const StyledSubTitleP = styled.p`
 
   /* Pragraph s */
 
-  font-family: "Mukta";
+  font-family: 'Mukta';
   font-style: normal;
   font-weight: 300;
   font-size: 10px;
@@ -105,177 +105,84 @@ const StyledSubTitleP = styled.p`
   align-self: stretch;
   flex-grow: 0;
   @media screen and (min-width: 48.0625rem) {
-width: 394px;
+    width: 394px;
   }
-`;
+`
 
-function Publication() {
-  const [ImgURL, setImgURL] = useState("");
-  const [ubicacion, setUbicacion] = useState("");
-  const [material, setMaterial] = useState("");
+function Publication({ handleClose }) {
+  const [ImgURL, setImgURL] = useState('')
+  const [ubicacion, setUbicacion] = useState('')
+  const [material, setMaterial] = useState('')
 
-  const opcionesUbicacion = [
-    "Almirante Brown",
-    "Avellaneda",
-    "Berazategui",
-    "Berisso",
-    "Brandsen",
-    "Campana",
-    "Cañuelas",
-    "Ensenada",
-    "Escobar",
-    "Esteban Echeverría",
-    "Exaltación de la Cruz",
-    "Ezeiza",
-    "Florencio Varela",
-    "General Las Heras",
-    "General Rodriguez",
-    "General San Martin",
-    "Hurlingham",
-    "Ituzaingó",
-    "José C. Paz",
-    "La Matanza",
-    "Lanús",
-    "La Plata",
-    "Lomas de Zamora",
-    "Luján",
-    "Marcos Paz",
-    "Malvinas Argentinas",
-    "Moreno",
-    "Merlo",
-    "Morón",
-    "Pilar",
-    "Presidente Perón",
-    "Quilmes",
-    "San Fernando",
-    "San Isidro",
-    "San Miguel",
-    "San Vicente",
-    "Tigre",
-    "Tres de Febrero",
-    "Vicente López",
-    "Zárate"
-  ];
-  const opcionesMaterial = ["Telas", "Metales", "Plásticos", "Cartón", "Otros"];
+  const opcionesUbicacion = ['Almirante Brown', 'Avellaneda', 'Berazategui', 'Berisso', 'Brandsen', 'Campana', 'Cañuelas', 'Ensenada', 'Escobar', 'Esteban Echeverría', 'Exaltación de la Cruz', 'Ezeiza', 'Florencio Varela', 'General Las Heras', 'General Rodriguez', 'General San Martin', 'Hurlingham', 'Ituzaingó', 'José C. Paz', 'La Matanza', 'Lanús', 'La Plata', 'Lomas de Zamora', 'Luján', 'Marcos Paz', 'Malvinas Argentinas', 'Moreno', 'Merlo', 'Morón', 'Pilar', 'Presidente Perón', 'Quilmes', 'San Fernando', 'San Isidro', 'San Miguel', 'San Vicente', 'Tigre', 'Tres de Febrero', 'Vicente López', 'Zárate']
+  const opcionesMaterial = ['Telas', 'Metales', 'Plásticos', 'Cartón', 'Otros']
 
   // Funciones para obtener valor de componente Imagen e "Input selector" (El input selector no es una etiqueta form, sino una lista UL con funciones para obtener los datos seleccionados.)
 
   const obtenerImg = (imgURL) => {
-    setImgURL(imgURL[0]);
-  };
+    setImgURL(imgURL[0])
+  }
   const obtenerUbicacion = (ubicacion) => {
-    setUbicacion(ubicacion);
-  };
+    setUbicacion(ubicacion)
+  }
   const obtenerMaterial = (material) => {
-    setMaterial(material);
-  };
+    setMaterial(material)
+  }
 
   // Funcion para boton cerrar
   function cerrarVentana() {
     // Redireccionar
-    console.log("Agregar redireccion a la funcion de cerrarVentana");
+    console.log('Agregar redireccion a la funcion de cerrarVentana')
   }
 
   // Funcion para el submit
   function post(form) {
     addProduct
-      .post("create", form)
-      .then((response) => console.log("Publicación realizada con éxito"))
-      .catch((error) => console.log("Hubo un error en la publicacion" + error));
+      .post('create', form)
+      .then((response) => console.log('Publicación realizada con éxito'))
+      .catch((error) => console.log('Hubo un error en la publicacion' + error))
   }
 
   function submitHandler(event) {
-    event.preventDefault();
+    event.preventDefault()
     function normalizeItem(texto) {
-      const resultado = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const resultado = texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       return resultado
     }
-    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ \-(),":.]+$/;
+    const regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ \-(),":.]+$/
 
-    const data = Object.fromEntries(new FormData(event.target));
-    data.image = ImgURL;
-    data.location = ubicacion;
+    const data = Object.fromEntries(new FormData(event.target))
+    data.image = ImgURL
+    data.location = ubicacion
     data.material = normalizeItem(material)
-    data.idEcoproveedor = 3;
-    JSON.stringify(data);
-    console.log(data);
+    data.idEcoproveedor = 3
+    JSON.stringify(data)
+    console.log(data)
 
-    if (
-      data.description !== "" &&
-      data.description.length < 50 &&
-      regex.test(data.description) &&
-      data.kilograms !== "" &&
-      !isNaN(data.kilograms) &&
-      data.image !== undefined &&
-      data.location !== "Ubicación del material" &&
-      data.material !== "Tipo de material"
-    ) {
-      post(data);
+    if (data.description !== '' && data.description.length < 50 && regex.test(data.description) && data.kilograms !== '' && !isNaN(data.kilograms) && data.image !== undefined && data.location !== 'Ubicación del material' && data.material !== 'Tipo de material') {
+      post(data)
     }
   }
 
   return (
     <>
       <StyledForm onSubmit={submitHandler}>
-        <Cerrar
-          onClick={cerrarVentana}
-          width={14}
-          height={14}
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M13 1L1 13"
-            stroke="#5B7171"
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M13 13L1 1"
-            stroke="#5B7171"
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <Cerrar onClick={cerrarVentana} width={14} height={14} viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
+          <path d='M13 1L1 13' stroke='#5B7171' strokeWidth={1.5} strokeLinecap='round' strokeLinejoin='round' />
+          <path d='M13 13L1 1' stroke='#5B7171' strokeWidth={1.5} strokeLinecap='round' strokeLinejoin='round' />
         </Cerrar>
 
         <StyledH2> Nueva Donación </StyledH2>
         <StyledSubTitleP> Un pequeño gesto. Un gran impacto. </StyledSubTitleP>
-        <Selector
-          titulo="Material"
-          placeholder="Tipo de material"
-          opciones={opcionesMaterial}
-          seleccionado={obtenerMaterial}
-          orden="2"
-        />
-        <StyledInput
-          name="description"
-          type="text"
-          titulo="Descripción"
-          orden="3"
-          placeholder="Ej: Algodon"
-        />
-        <StyledInput
-          name="kilograms"
-          type="text"
-          titulo="Cantidad"
-          orden="4"
-          placeholder="Cantidad en kilogramo"
-        />
-        <Selector
-          titulo="location"
-          placeholder="Ubicación del material"
-          opciones={opcionesUbicacion}
-          orden="5"
-          seleccionado={obtenerUbicacion}
-        />
-        <ImgSelector imgValor={obtenerImg} orden="6" />
-        <PostButton orden="7" />
+        <Selector titulo='Material' placeholder='Tipo de material' opciones={opcionesMaterial} seleccionado={obtenerMaterial} orden='2' />
+        <StyledInput name='description' type='text' titulo='Descripción' orden='3' placeholder='Ej: Algodon' />
+        <StyledInput name='kilograms' type='text' titulo='Cantidad' orden='4' placeholder='Cantidad en kilogramo' />
+        <Selector titulo='location' placeholder='Ubicación del material' opciones={opcionesUbicacion} orden='5' seleccionado={obtenerUbicacion} />
+        <ImgSelector imgValor={obtenerImg} orden='6' />
+        <PostButton handleClose={handleClose} orden='7' />
       </StyledForm>
     </>
-  );
+  )
 }
 
-export default Publication;
+export default Publication

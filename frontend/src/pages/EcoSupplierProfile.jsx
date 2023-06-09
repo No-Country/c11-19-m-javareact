@@ -59,6 +59,11 @@ const EcoSupplierProfile = () => {
   function handleClick() {
     setShow(true)
   }
+
+  const handleClose = () => {
+    setShow(false)
+  }
+
   return (
     <Layout>
       {userInfo && (
@@ -80,7 +85,7 @@ const EcoSupplierProfile = () => {
       )}
       {show && (
         <PublicationWrapper>
-          <Publication />
+          <Publication handleClose={handleClose} />
           Publication
         </PublicationWrapper>
       )}
