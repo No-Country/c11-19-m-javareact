@@ -8,7 +8,7 @@ const ContenedorContact = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 312px;
   height: 569px;
   min-width: 312px;
   max-width: 460px;
@@ -22,6 +22,7 @@ const BotonCerrarContenedor = styled.div`
   height: 16px;
   left: 280px;
   top: 16px;
+  cursor: pointer;
 `;
 
 const ContenedorBackgroundImagen = styled.div`
@@ -151,51 +152,62 @@ const UltimoTexto = styled.p`
   color: #5b7171;
 `;
 
-function ContactModal({ datos }) {
+function ContactModal({ supplierData, onClose }) {
   const datosHardcodeados = {
     logoImage:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRGBbYnG3Zy66buhHfsQrltCXju7m0Hj5JMaFS-bt9tG5fDtyUSqzQruB5WJC9uLG6EgM&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRGBbYnG3Zy66buhHfsQrltCXju7m0Hj5JMaFS-bt9tG5fDtyUSqzQruB5WJC9uLG6EgM&usqp=CAU",
   };
   return (
     <>
-      <ContenedorContact>
-        <BotonCerrarContenedor>
-          <CloseButton />
-        </BotonCerrarContenedor>
+      {supplierData && (
+        <ContenedorContact>
+          <BotonCerrarContenedor onClick={onClose}>
+            <CloseButton />
+          </BotonCerrarContenedor>
 
-        <ContenedorBackgroundImagen>
-          <BackgroundImagen />
-        </ContenedorBackgroundImagen>
+          <ContenedorBackgroundImagen>
+            <BackgroundImagen />
+          </ContenedorBackgroundImagen>
 
-        <ContenedorPerfilLogoYPuntos>
-          <PerfilLogo img={datosHardcodeados.logoImage} />
-          <ContenedorElipseYPuntos>
-            <Elipse />
-            <NumeroPuntos>10,5mil {datosHardcodeados.points}</NumeroPuntos>
-            <EcoPuntos>ecopuntos</EcoPuntos>
-          </ContenedorElipseYPuntos>
-        </ContenedorPerfilLogoYPuntos>
+          <ContenedorPerfilLogoYPuntos>
+            <PerfilLogo img={supplierData.logoImage} />
+            <ContenedorElipseYPuntos>
+              <Elipse />
+              <NumeroPuntos>10,5mil {supplierData.points}</NumeroPuntos>
+              <EcoPuntos>ecopuntos</EcoPuntos>
+            </ContenedorElipseYPuntos>
+          </ContenedorPerfilLogoYPuntos>
 
-        <DatosContenedor>
-          <TituloDatos>Datos de contacto</TituloDatos>
-          <DescripcionDatos>
-            <li>
-              Razon social: Pampa Leather. {datosHardcodeados.companyName}{" "}
-            </li>
-            <li>Cuit: 30-50401884-5 {datosHardcodeados.cuit}</li>
-            <li>
-              Contacto: Mariana Ramirez{datosHardcodeados.firstName}{" "}
-              {datosHardcodeados.lastName}
-            </li>
-            <li>Email: mramirez@pampaleather.com {datosHardcodeados.email} </li>
-          </DescripcionDatos>
-        </DatosContenedor>
+          <DatosContenedor>
+            <TituloDatos>Datos de contacto</TituloDatos>
+            <DescripcionDatos>
+              <li>Razon social: Pampa Leather. {supplierData.companyName} </li>
+              <li>Cuit: 30-50401884-5 {supplierData.cuit}</li>
+              <li>
+                Contacto: Mariana Ramirez{supplierData.firstName}{" "}
+                {supplierData.lastName}
+              </li>
+              <li>Email: mramirez@pampaleather.com {supplierData.email} </li>
+            </DescripcionDatos>
+          </DatosContenedor>
 
-        <UltimoTexto>
-          ¡Estas a un paso de reciclar un nuevo material!
-        </UltimoTexto>
-
-      </ContenedorContact>
+          <UltimoTexto>
+            ¡Estas a un paso de reciclar un nuevo material!
+          </UltimoTexto>
+        </ContenedorContact>
+      )}
+      {!supplierData && (
+        <ContenedorContact>
+          <BotonCerrarContenedor onClick={onClose}>
+            <CloseButton />
+          </BotonCerrarContenedor>
+          <DatosContenedor>
+            <NumeroPuntos>
+              No se encontraron los datos. <br /> Vuelve a intentar mas tarde
+            </NumeroPuntos>
+          </DatosContenedor>
+        </ContenedorContact>
+      )}
     </>
   );
 }
