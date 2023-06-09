@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { EcoSupplierCard } from '../components/EcoSupplierCard'
 import { SupplierProfilePhoto } from '../components/SupplierProfilePhoto'
 import { Layout } from '../routes/Layout'
+import { useAuth } from '../hooks/auth/useAuth'
 import { useState } from 'react'
 import Publication from '../components/publications/ModalPublication'
 
@@ -9,7 +10,7 @@ const PublicationWrapper = styled.div`
   height: 100%;
   width: 100%;
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -53,34 +54,36 @@ const MaterialGridSection = styled.section`
 
 const EcoSupplierProfile = () => {
   const [show, setShow] = useState(false)
+  const { userInfo } = useAuth()
 
   function handleClick() {
     setShow(true)
   }
-
   return (
     <Layout>
-      <MainStyled>
-        {show && (
-          <PublicationWrapper>
-            <Publication />
-            Publication
-          </PublicationWrapper>
-        )}
-        <ProfileBannerContainer>
-          <SupplierProfilePhoto />
-        </ProfileBannerContainer>
-        <article>
-          <h2>¡Hola, la costeleria!</h2>
-          <h3>¿Que materiales quieres compartir hoy?</h3>
-        </article>
-        <NewMaterialStyled onClick={handleClick}>nuevo material</NewMaterialStyled>
-        <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
-        <MaterialGridSection>
-          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-        </MaterialGridSection>
-      </MainStyled>
+      {userInfo && (
+        <MainStyled>
+          <ProfileBannerContainer>
+            <SupplierProfilePhoto />
+          </ProfileBannerContainer>
+          <article>
+            <h2>¡Hola, {userInfo.firstName}!</h2>
+            <h3>¿Que materiales quieres compartir hoy?</h3>
+          </article>
+          <NewMaterialStyled onClick={handleClick}>nuevo material</NewMaterialStyled>
+          <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
+          <MaterialGridSection>
+            <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+            <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+          </MaterialGridSection>
+        </MainStyled>
+      )}
+      {show && (
+        <PublicationWrapper>
+          <Publication />
+          Publication
+        </PublicationWrapper>
+      )}
     </Layout>
   )
 }

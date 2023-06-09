@@ -1,8 +1,9 @@
+import styled from 'styled-components'
 import { useState } from 'react'
 import { Input } from '../Input'
 import { UploadProfileImage } from './UploadProfileImage'
+import { Link } from 'react-router-dom'
 import Boton from '../Boton'
-import styled from 'styled-components'
 import { registerEcosupplier } from '../../services/api/user/instances'
 import { useAuth } from '../../hooks/auth/useAuth'
 
@@ -44,6 +45,8 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
       .catch((error) => console.log(error))
   }
 
+  console.log(userInfo)
+
   return (
     <div>
       <FormTitulo>Completá tus datos para empezar a transformar el mundo como</FormTitulo>
@@ -53,7 +56,9 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
       <Input label='Razón social' type='text' name='legalName' value={form.legalName} onChange={handleOnChange} placeHolder='Razón social' />
       <Input label='CUIT' type='number' name='cuit' value={form.cuit} onChange={handleOnChange} placeHolder='Tu CUIT' />
       <UploadProfileImage imgValor={handleChangeImage} />
-      <Boton onClick={handleSubmit}>Guardar</Boton>
+      <Boton onClick={handleSubmit}>
+        <Link to='/supplier-profile'>Guardar</Link>
+      </Boton>
     </div>
   )
 }

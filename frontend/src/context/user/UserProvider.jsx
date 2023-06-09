@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 
 const UserProvider = ({ children }) => {
   const [user, updateUser] = useState(false)
-  const [userInfo, setUserInfo] = useState({})
+  const [userInfo, setUserInfo] = useState(null)
 
   useEffect(() => {
     const onSubscribe = onAuthStateChanged(auth, (user) => {
@@ -48,7 +48,8 @@ const UserProvider = ({ children }) => {
     signUp,
     signInWithGoogle,
     signOutUser,
-    updateUserInfo
+    updateUserInfo,
+    userInfo
   }
 
   return <UserContext.Provider value={data}>{children}</UserContext.Provider>
