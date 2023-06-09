@@ -13,6 +13,7 @@ const HeroHexagonsContainer = styled.div`
   background-image: url('./public/hero/hero-background.svg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center bottom;
   display: grid;
   row-gap: 1rem;
   grid-template-areas:
@@ -22,11 +23,20 @@ const HeroHexagonsContainer = styled.div`
   & img {
     width: 6.0625rem;
   }
+  @media screen and (min-width: 48.0625rem) {
+    height: 62vh;
+    & img {
+    width: 10.0625rem;
+  }
+  }
 `
 
 const Hexagon1 = styled.img`
   grid-area: hexagon-1;
   justify-self: end;
+  @media screen and (min-width: 48.0625rem) {
+    width: 12.5rem;
+  }
 `
 const Hexagon2 = styled.img`
   grid-area: hexagon-2;
@@ -47,6 +57,7 @@ const Hexagon5 = styled.div`
   justify-self: end;
   width: 6.875rem;
   color: white;
+  fill: var(--green-4);
 `
 const HexagonStyled = styled(Hexagon)`
   position: absolute;
@@ -70,14 +81,21 @@ const Hexagon5Text = styled.div`
     font-size: 0.75rem;
     line-height: 1.375rem;
   }
+  @media screen and (min-width: 48.0625rem) {
+    top: 10%;
+  }
 `
 
 const HeroText = styled.p`
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  font-weight: 900;
   padding: 1rem;
   color: #5b7171;
+  font: var(--heading-small);
+  text-align: center;
+  margin: 0 auto;
+  width: clamp(18.75rem, 90vw, 70.875rem);
+  @media screen and (min-width: 48.0625rem) {
+    font: var(--heading-xxlarge);
+  }
 `
 
 const Hero = () => {

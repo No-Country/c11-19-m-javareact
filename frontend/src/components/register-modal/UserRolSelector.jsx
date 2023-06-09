@@ -57,13 +57,14 @@ const UserRolSelector = ({ form, handleOnChange, handleSubmit }) => {
         <RadioButtonContainer>
           <EcoProviderText>Los ecoproveedores son empresas comprometidas con el cuidado del medioambiente, que publican sus materiales de desecho industrial, para que sean reutilizados por diseñadores, artistas y pequeños emprendedores con el fin de fomentar la economía circular.</EcoProviderText>
           <RadioButtonLabel>
-            <input type='radio' name='userType' value='ecocreador' checked={form.userType === 'ecocreador'} onChange={handleOnChange} />
-            Soy EcoCreador
-          </RadioButtonLabel>
-          <EcoCreatorText>Los ecocreadores les dan una segunda oportunidad a objetos que otros consideran basura. Son verdaderos artistas, que utilizan su creatividad para convertir materiales de desecho en algo hermoso y útil.</EcoCreatorText>
-          <RadioButtonLabel>
             <input type='radio' name='userType' value='ecoproveedor' checked={form.userType === 'ecoproveedor'} onChange={handleOnChange} />
             Soy EcoProveedor
+          </RadioButtonLabel>
+          <EcoCreatorText>Los ecocreadores les dan una segunda oportunidad a objetos que otros consideran basura. Son verdaderos artistas, que utilizan su creatividad para convertir materiales de desecho en algo hermoso y útil.</EcoCreatorText>
+
+          <RadioButtonLabel>
+            <input type='radio' name='userType' value='ecocreador' checked={form.userType === 'ecocreador'} onChange={handleOnChange} />
+            Soy EcoCreador
           </RadioButtonLabel>
         </RadioButtonContainer>
         {form.error && <ErrorMessage>{form.error}</ErrorMessage>}

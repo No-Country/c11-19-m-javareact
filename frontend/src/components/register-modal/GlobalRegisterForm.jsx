@@ -3,6 +3,7 @@ import { Input } from '../Input'
 import { BotonGoogle } from '../BotonGoogle'
 import { useAuth } from '../../hooks/auth/useAuth'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const FormTitle = styled.h5`
   width: 16.5rem;
@@ -16,9 +17,9 @@ const FormTitle = styled.h5`
 `
 
 const Registered = styled.p`
-margin-top: 0.3125rem;
-text-align: center;
-color: var(--gray-4);
+  margin-top: 0.3125rem;
+  text-align: center;
+  color: var(--gray-4);
   & a {
     color: var(--orange-2);
     text-decoration: underline;
@@ -56,10 +57,12 @@ const GlobalRegisterForm = ({ form, handleOnChange, handleSubmit }) => {
       <Input label='Contraseña' name='password' type='password' value={form.password} onChange={handleOnChange} placeHolder='**********' />
       <Input label='Confirma tu contraseña' name='confirmPassword' type='password' value={form.confirmPassword} onChange={handleOnChange} placeHolder='**********' />
 
-      <Boton disabled={!form.email || !form.password || !form.confirmPassword} onClick={handleRegister}>
+      <Boton disabled={!form.email || !form.password || !form.confirmPassword} onClick={handleSubmit}>
         Registrarse
       </Boton>
-      <Registered>¿Ya estás registradx? <a href='#login'>Click acá</a></Registered>
+      <Registered>
+        ¿Ya estás registradx? <Link to='/login'>Click acá</Link>
+      </Registered>
     </>
   )
 }
