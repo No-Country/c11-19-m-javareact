@@ -3,6 +3,7 @@ import { Input } from '../Input'
 import { UploadProfileImage } from './UploadProfileImage'
 import Boton from '../Boton'
 import styled from 'styled-components'
+import { registerEcosupplier } from '../../services/api/user/instances'
 
 const FormTitulo = styled.h6`
   text-align: center;
@@ -23,9 +24,22 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
     setImgUrl(imgURL[0])
   }
 
+  const ecoSupplierModel = {
+    firstName: form.name,
+    lastName: form.lastName,
+    companyName: form.legalName,
+    cuit: form.cuit,
+    email: form.email,
+    logoImage: imgUrl
+  }
+
   const handleSubmit = () => {
-    handleOnChange('', imgUrl)
-    console.log(form)
+    // handleOnChange('', img)
+
+    registerEcosupplier
+      .post('', ecoSupplierModel)
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error))
   }
 
   return (
