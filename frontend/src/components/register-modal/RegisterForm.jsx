@@ -14,7 +14,6 @@ const BgForm = styled.div`
   background-size: contain;
   background-position: center center;
   width: 100%;
-  height: 500px;
   @media screen and (min-width: 48.0625rem) {
     background-image: url(${hexagonBg});
     background-size: cover;
