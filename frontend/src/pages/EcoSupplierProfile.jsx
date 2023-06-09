@@ -3,6 +3,18 @@ import { EcoSupplierCard } from '../components/EcoSupplierCard'
 import { SupplierProfilePhoto } from '../components/SupplierProfilePhoto'
 import { Layout } from '../routes/Layout'
 import { useAuth } from '../hooks/auth/useAuth'
+import { useState } from 'react'
+import Publication from '../components/publications/ModalPublication'
+
+const PublicationWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`
 
 const MainStyled = styled.main`
   display: flex;
@@ -33,7 +45,7 @@ const MaterialsTitleStyled = styled.h3`
   align-self: flex-start;
 `
 
-const MateriasGridSection = styled.section`
+const MaterialGridSection = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(6.25rem, 10rem));
   column-gap: 1rem;
@@ -41,8 +53,12 @@ const MateriasGridSection = styled.section`
 `
 
 const EcoSupplierProfile = () => {
+  const [show, setShow] = useState(false)
   const { userInfo } = useAuth()
 
+  function handleClick() {
+    setShow(true)
+  }
   return (
     <Layout>
       {userInfo && (
@@ -54,30 +70,20 @@ const EcoSupplierProfile = () => {
             <h2>¡Hola, {userInfo.firstName}!</h2>
             <h3>¿Que materiales quieres compartir hoy?</h3>
           </article>
-          <NewMaterialStyled>nuevo material</NewMaterialStyled>
+          <NewMaterialStyled onClick={handleClick}>nuevo material</NewMaterialStyled>
           <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
-          <MateriasGridSection>
+          <MaterialGridSection>
             <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
             <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-          </MateriasGridSection>
+          </MaterialGridSection>
         </MainStyled>
       )}
-
-      {/*       <MainStyled>
-        <ProfileBannerContainer>
-          <SupplierProfilePhoto />
-        </ProfileBannerContainer>
-        <article>
-          <h2>¡Hola, la costeleria!</h2>
-          <h3>¿Que materiales quieres compartir hoy?</h3>
-        </article>
-        <NewMaterialStyled>nuevo material</NewMaterialStyled>
-        <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
-        <MateriasGridSection>
-          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-          <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
-        </MateriasGridSection>
-      </MainStyled> */}
+      {show && (
+        <PublicationWrapper>
+          <Publication />
+          Publication
+        </PublicationWrapper>
+      )}
     </Layout>
   )
 }
