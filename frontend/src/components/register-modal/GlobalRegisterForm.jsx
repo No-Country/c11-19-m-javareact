@@ -29,8 +29,7 @@ const Registered = styled.p`
 const GlobalRegisterForm = ({ form, handleOnChange, handleSubmit }) => {
   const { signUp, signInWithGoogle } = useAuth()
 
-  const handleSignInWithGoogle = async (e) => {
-    e.preventDefault()
+  const handleSignInWithGoogle = async () => {
     try {
       const { user } = await signInWithGoogle()
       console.log(user)
