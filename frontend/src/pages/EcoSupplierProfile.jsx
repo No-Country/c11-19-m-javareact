@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { EcoSupplierCard } from '../components/EcoSupplierCard'
 import { SupplierProfilePhoto } from '../components/SupplierProfilePhoto'
 import { Layout } from '../routes/Layout'
+import { useAuth } from '../hooks/auth/useAuth'
 
 const MainStyled = styled.main`
   display: flex;
@@ -40,9 +41,29 @@ const MateriasGridSection = styled.section`
 `
 
 const EcoSupplierProfile = () => {
+  const { userInfo } = useAuth()
+
   return (
     <Layout>
-      <MainStyled>
+      {userInfo && (
+        <MainStyled>
+          <ProfileBannerContainer>
+            <SupplierProfilePhoto />
+          </ProfileBannerContainer>
+          <article>
+            <h2>¡Hola, {userInfo.firstName}!</h2>
+            <h3>¿Que materiales quieres compartir hoy?</h3>
+          </article>
+          <NewMaterialStyled>nuevo material</NewMaterialStyled>
+          <MaterialsTitleStyled>Materiales publicados</MaterialsTitleStyled>
+          <MateriasGridSection>
+            <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+            <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
+          </MateriasGridSection>
+        </MainStyled>
+      )}
+
+      {/*       <MainStyled>
         <ProfileBannerContainer>
           <SupplierProfilePhoto />
         </ProfileBannerContainer>
@@ -56,7 +77,7 @@ const EcoSupplierProfile = () => {
           <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
           <EcoSupplierCard imageUrl='https://res.cloudinary.com/drc41imav/image/upload/v1685985954/UpCircle/mtw7ttuojwmwhcy9xsjf.jpg' title='Telas' stock='36 Kilos' material='Algodon' location='Avellaneda' />
         </MateriasGridSection>
-      </MainStyled>
+      </MainStyled> */}
     </Layout>
   )
 }
