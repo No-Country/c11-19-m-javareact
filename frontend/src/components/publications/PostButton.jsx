@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -58,7 +59,9 @@ const StyledButton = styled.button`
 function PostButton({ orden }) {
   return (
     <Container orden={orden}>
-      <StyledButton type="submit">Guardar</StyledButton>
+      {/* <Link to="/supplier-profile"> */}
+        <StyledButton type="submit">Guardar</StyledButton>
+      {/* </Link> */}
     </Container>
   );
 }
