@@ -1,9 +1,11 @@
+import styled from 'styled-components'
 import { useState } from 'react'
 import { Input } from '../Input'
 import { UploadProfileImage } from './UploadProfileImage'
+import { Link } from 'react-router-dom'
 import Boton from '../Boton'
-import styled from 'styled-components'
 import { registerEcosupplier } from '../../services/api/user/instances'
+import { useAuth } from '../../hooks/auth/useAuth'
 
 const FormTitulo = styled.h6`
   text-align: center;
@@ -19,6 +21,7 @@ const FormTituloVerde = styled.h4`
 
 const EcoSupplierForm = ({ form, handleOnChange }) => {
   const [imgUrl, setImgUrl] = useState('')
+  const { userInfo, updateUserInfo } = useAuth()
 
   const handleChangeImage = (imgURL) => {
     setImgUrl(imgURL[0])
@@ -38,9 +41,11 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
 
     registerEcosupplier
       .post('', ecoSupplierModel)
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error))
+      .then((response) => updateUserInfo(response.data))
+      .catch((error) => console.log(error))
   }
+
+  console.log(userInfo)
 
   return (
     <div>
@@ -51,7 +56,9 @@ const EcoSupplierForm = ({ form, handleOnChange }) => {
       <Input label='Razón social' type='text' name='legalName' value={form.legalName} onChange={handleOnChange} placeHolder='Razón social' />
       <Input label='CUIT' type='number' name='cuit' value={form.cuit} onChange={handleOnChange} placeHolder='Tu CUIT' />
       <UploadProfileImage imgValor={handleChangeImage} />
-      <Boton onClick={handleSubmit}>Guardar</Boton>
+      <Boton onClick={handleSubmit}>
+        <Link to='/supplier-profile'>Guardar</Link>
+      </Boton>
     </div>
   )
 }

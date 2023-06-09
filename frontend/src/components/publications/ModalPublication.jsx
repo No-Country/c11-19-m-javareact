@@ -13,7 +13,7 @@ const StyledForm = styled.form`
   align-items: flex-end;
   padding: 40px 24px 14px;
   gap: 8px;
-
+  z-index: 10;
   position: absolute;
   width: 312px;
   // height: 640px;
@@ -26,6 +26,12 @@ const StyledForm = styled.form`
   background: #f3f3f3;
   box-shadow: 4px 4px 30px rgba(84, 84, 84, 0.1);
   border-radius: 8px;
+  @media screen and (min-width: 48.0625rem) {
+    width: 442px;
+    left: calc(50% - 442px / 2);
+  top: calc(50% - 696px / 2);
+  align-items: center;
+  }
 `;
 
 const Cerrar = styled.svg`
@@ -67,6 +73,9 @@ const StyledH2 = styled.h2`
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  @media screen and (min-width: 48.0625rem) {
+width: 394px;
+  }
 `;
 
 const StyledSubTitleP = styled.p`
@@ -95,6 +104,9 @@ const StyledSubTitleP = styled.p`
   order: 2;
   align-self: stretch;
   flex-grow: 0;
+  @media screen and (min-width: 48.0625rem) {
+width: 394px;
+  }
 `;
 
 function Publication() {
@@ -142,7 +154,7 @@ function Publication() {
     "Tigre",
     "Tres de Febrero",
     "Vicente López",
-    "Zárate",
+    "Zárate"
   ];
   const opcionesMaterial = ["Telas", "Metales", "Plásticos", "Cartón", "Otros"];
 
@@ -196,7 +208,7 @@ function Publication() {
       !isNaN(data.kilograms) &&
       data.image !== undefined &&
       data.location !== "Ubicación del material" &&
-      data.material !== "Tipo de meterial"
+      data.material !== "Tipo de material"
     ) {
       post(data);
     }
